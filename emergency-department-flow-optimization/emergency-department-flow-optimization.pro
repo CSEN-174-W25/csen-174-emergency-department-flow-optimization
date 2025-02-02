@@ -10,10 +10,15 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    patient.cpp \
+    symptoms.cpp
 
 HEADERS += \
-    mainwindow.h
+    main.h \
+    mainwindow.h \
+    patient.h \
+    symptoms.h
 
 FORMS += \
     mainwindow.ui
