@@ -9,14 +9,18 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    department.cpp \
     main.cpp \
     mainwindow.cpp \
+    nurse.cpp \
     patient.cpp \
     symptoms.cpp
 
 HEADERS += \
+    department.h \
     main.h \
     mainwindow.h \
+    nurse.h \
     patient.h \
     symptoms.h
 
