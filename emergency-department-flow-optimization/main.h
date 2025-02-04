@@ -3,6 +3,10 @@
 
 #include <string>
 #include <stdio.h>
+#include <vector>
+#include <map>
+#include <algorithm>
 #include <QDate>
+#include <QString>
 
-#endif // MAIN_H
+#endif

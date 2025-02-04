@@ -1,27 +1,23 @@
 #ifndef NURSE_H
 #define NURSE_H
 
-#include "main.h";
+#include "main.h"
+#include <string>
 
-typedef std::string string;
+class Nurse {
+public:
+    Nurse(int nurseId, std::string name);
+    Nurse();
 
-class nurse
-{
+    // Accessors
+    int getNurseId() const { return _nurseId; }
+    std::string getName() const { return _name; }
 
-    public:
-        nurse(int nurseID, string name);
-        nurse();
+    // Mutators
+    void setNurseId(int id) { _nurseId = id; }
+    void setName(const std::string& name) { _name = name; }
 
-        //Accessors
-        int nurseID(){return _nurseID;}
-        string name(){return _name;}
-
-        //Mutators
-
-
-    private:
-        int _nurseID();
-        string _name;
+private:
+    int _nurseId;
+    std::string _name;
 };
-
-#endif // NURSE_H
