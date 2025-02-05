@@ -28,7 +28,9 @@ private slots:
     void on_refreshButton_clicked();
     
     // Auto-refresh timer slot
+    QString calculateWaitTime(const QDateTime& entryTime);
     void updateQueues();
+    Patient* findPatient(int patientId);
 
 private:
     Ui::NurseInterface *ui;
@@ -45,3 +47,5 @@ private:
     bool changeDepartment(int patientId, DepartmentType newDept);
     void updatePatientPriority(int patientId, int newPriority);
 };
+
+#endif

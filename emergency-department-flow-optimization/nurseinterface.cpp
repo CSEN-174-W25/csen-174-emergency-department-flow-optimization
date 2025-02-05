@@ -68,11 +68,11 @@ void NurseInterface::updateDepartmentView(const Department& dept, QTableWidget* 
         table->insertRow(row);
         
         // Get patient information
-        Patient* patient = findPatient(entry.patientId);  // You'll need to implement this
+        Patient* patient = findPatient(entry.patientId);  // implement this
         if (!patient) continue;
         
         // Calculate wait time
-        QDateTime entryTime = QDateTime::fromTime_t(entry.entryTime);
+        QDateTime entryTime = QDateTime::fromSecsSinceEpoch(entry.entryTime);
         QString waitTime = calculateWaitTime(entryTime);
         
         // Add patient information to table
@@ -286,10 +286,8 @@ void NurseInterface::updateQueues()
                                 QDateTime::currentDateTime().toString("hh:mm:ss AP"));
 }
 
-// Helper method to find patient - you'll need to implement this based on your storage system
+// Helper method to find patient - implement this based storage system
 Patient* NurseInterface::findPatient(int patientId)
 {
-    // This is a placeholder - implement based on your patient storage system
-    // You might want to use a database or some other persistent storage
     return nullptr;
 }

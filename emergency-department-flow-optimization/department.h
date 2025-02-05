@@ -30,8 +30,8 @@ public:
     std::vector<QueueEntry> getQueue() const;
     
     // Department info
-    std::string getName() const;
-    int getPatientCount() const;
+    std::string getName() const {return _name;}
+    int getPatientCount() const {return _priorityQueue.size();}
     bool hasPatient(int patientId) const;
     
     // For nurse override functionality
@@ -42,3 +42,6 @@ private:
     std::priority_queue<QueueEntry> _priorityQueue;
     std::map<int, QueueEntry> _patientIndex; // For O(1) lookups
 };
+
+
+#endif

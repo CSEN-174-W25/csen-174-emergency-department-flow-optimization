@@ -26,3 +26,5 @@ private:
     PatientForm *patientForm;
     NurseLogin *nurseLogin;
 };
+
+#endif

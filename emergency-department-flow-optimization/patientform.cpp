@@ -171,9 +171,9 @@ void PatientForm::updateSymptomList()
     }
     
     // Update add button state
-    ui->addSymptomButton->setEnabled(
-        currentPatient.getSymptoms().getSymptomCount() < Symptoms::MAX_SYMPTOMS
-    );
+    //ui->addSymptomButton->setEnabled(
+    //    currentPatient.getSymptoms().getSymptomCount() < Symptoms::MAX_SYMPTOMS
+    //);
 }
 
 bool PatientForm::validateSymptoms()
