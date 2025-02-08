@@ -1,0 +1,16 @@
+debug/department.o
+debug/globaldepartments.o
+debug/main.o
+debug/mainwindow.o
+debug/nurse.o
+debug/nurseinterface.o
+debug/nurselogin.o
+debug/patient.o
+debug/patientdatabase.o
+debug/patientform.o
+debug/symptom_definition.o
+debug/symptoms.o
+debug/moc_mainwindow.o
+debug/moc_nurseinterface.o
+debug/moc_nurselogin.o
+debug/moc_patientform.o
