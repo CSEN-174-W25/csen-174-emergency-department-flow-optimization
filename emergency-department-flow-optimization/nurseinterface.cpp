@@ -72,7 +72,7 @@ void NurseInterface::updateDepartmentView(const Department& dept, QTableWidget* 
         if (!patient) continue;
         
         // Calculate wait time
-        QDateTime entryTime = QDateTime::fromTime_t(entry.entryTime);
+        QDateTime entryTime = QDateTime::fromSecsSinceEpoch(entry.entryTime);
         QString waitTime = calculateWaitTime(entryTime);
         
         // Add patient information to table
@@ -131,7 +131,7 @@ void NurseInterface::on_viewPatientButton_clicked()
 
 void NurseInterface::viewPatientDetails(int patientId)
 {
-    Patient* patient = findPatient(patientId);
+    Patient* patient = nullptr;//= findPatient(patientId);
     if (!patient) {
         QMessageBox::warning(this, "Error", "Patient not found.");
         return;

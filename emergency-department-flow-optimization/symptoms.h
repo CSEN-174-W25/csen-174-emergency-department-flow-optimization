@@ -31,9 +31,12 @@ public:
     size_t getSymptomCount() const { return _symptoms.size(); }
     bool hasAdditionalSymptoms() const { return _hasAdditionalSymptoms; }
     void setAdditionalSymptoms(bool has) { _hasAdditionalSymptoms = has; }
+    static const size_t MAX_SYMPTOMS = 5;
+
 
 private:
     std::vector<PatientSymptom> _symptoms;
     bool _hasAdditionalSymptoms = false;
-    static const size_t MAX_SYMPTOMS = 5;
 };
+
+#endif

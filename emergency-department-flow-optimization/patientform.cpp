@@ -26,6 +26,22 @@ PatientForm::~PatientForm()
     delete ui;
 }
 
+//Navigation buttons, add the proper functionality add their functionality
+
+void PatientForm::on_nextButton_clicked(){
+    return;
+}
+void PatientForm::on_backButton_clicked(){
+    return;
+}
+void PatientForm::on_cancelButton_clicked(){
+    return;
+}
+
+
+
+
+
 void PatientForm::setupPersonalInfoPage()
 {
     // Setup date picker for DOB

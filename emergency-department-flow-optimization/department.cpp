@@ -10,6 +10,10 @@ void Department::addPatient(int patientId, int priority) {
     _patientIndex[patientId] = entry;
 }
 
+void Department::updatePatientPriority(int patientId, int newPriority){ //Complete this function
+    return;
+}
+
 void Department::removePatient(int patientId) {
     // Note: In practice, you'd need to rebuild the priority queue
     // This is a simplified version
@@ -22,4 +26,8 @@ std::vector<Department::QueueEntry> Department::getQueue() const {
         queue.push_back(entry);
     }
     return queue;
+}
+
+void Department::transferPatient(int patientId, Department& targetDept){ //Complete this function
+    return;
 }

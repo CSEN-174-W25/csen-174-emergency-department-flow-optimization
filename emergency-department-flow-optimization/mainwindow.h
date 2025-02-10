@@ -13,16 +13,18 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
-public:
-    MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    public:
+        MainWindow(QWidget *parent = nullptr);
+        ~MainWindow();
 
-private slots:
-    void on_patientButton_clicked();
-    void on_nurseButton_clicked();
+    private slots:
+        void on_patientButton_clicked();
+        void on_nurseButton_clicked();
 
-private:
-    Ui::MainWindow *ui;
-    PatientForm *patientForm;
-    NurseLogin *nurseLogin;
+    private:
+        Ui::MainWindow *ui;
+        PatientForm *patientForm;
+        NurseLogin *nurseLogin;
 };
+
+#endif

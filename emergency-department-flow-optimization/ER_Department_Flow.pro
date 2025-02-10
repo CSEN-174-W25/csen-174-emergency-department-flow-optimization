@@ -1,4 +1,5 @@
-QT       += core gui
+QT       += core gui \
+            core testlib
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -17,7 +18,9 @@ SOURCES += \
     nurselogin.cpp \
     patient.cpp \
     patientform.cpp \
-    symptoms.cpp
+    symptom_definition.cpp \
+    symptoms.cpp \
+    tests.cpp
 
 HEADERS += \
     department.h \
@@ -29,7 +32,8 @@ HEADERS += \
     patient.h \
     patientform.h \
     symptom_definition.h \
-    symptoms.h
+    symptoms.h \
+    tests.h
 
 FORMS += \
     mainwindow.ui \

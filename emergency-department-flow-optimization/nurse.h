@@ -5,19 +5,21 @@
 #include <string>
 
 class Nurse {
-public:
-    Nurse(int nurseId, std::string name);
-    Nurse();
+    public:
+        Nurse(int nurseId, std::string name);
+        Nurse();
 
-    // Accessors
-    int getNurseId() const { return _nurseId; }
-    std::string getName() const { return _name; }
+        // Accessors
+        int getNurseId() const { return _nurseId; }
+        std::string getName() const { return _name; }
 
-    // Mutators
-    void setNurseId(int id) { _nurseId = id; }
-    void setName(const std::string& name) { _name = name; }
+        // Mutators
+        void setNurseId(int id) { _nurseId = id; }
+        void setName(const std::string& name) { _name = name; }
 
-private:
-    int _nurseId;
-    std::string _name;
+    private:
+        int _nurseId;
+        std::string _name;
 };
+
+#endif
