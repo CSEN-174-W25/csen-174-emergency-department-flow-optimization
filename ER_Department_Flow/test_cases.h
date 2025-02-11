@@ -2,7 +2,6 @@
 #define TEST_FUNCTIONS_H
 
 #include <QObject>
-
 #include <QTest>
 #include "symptoms.h"
 #include "symptom_definition.h"

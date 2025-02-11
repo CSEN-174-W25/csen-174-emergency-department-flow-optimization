@@ -29,19 +29,19 @@ private slots:
     void on_updatePriorityButton_clicked();
     void on_changeDepartmentButton_clicked();
     void on_refreshButton_clicked();
-    
+
     // Auto-refresh timer slot
     void updateQueues();
 
 private:
     Ui::NurseInterface *ui;
     QTimer *refreshTimer;
-    
+
     // Department queues
     //Department cardiacDept;
     //Department respiratoryDept;
     //Department generalDept;
-    
+
     void setupDepartmentViews();
     void updateDepartmentView(const Department& dept, QTableWidget* table);
     void viewPatientDetails(int patientId);
