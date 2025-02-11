@@ -1,0 +1,16 @@
+release/department.o
+release/globaldepartments.o
+release/main.o
+release/mainwindow.o
+release/nurse.o
+release/nurseinterface.o
+release/nurselogin.o
+release/patient.o
+release/patientdatabase.o
+release/patientform.o
+release/symptom_definition.o
+release/symptoms.o
+release/moc_mainwindow.o
+release/moc_nurseinterface.o
+release/moc_nurselogin.o
+release/moc_patientform.o
