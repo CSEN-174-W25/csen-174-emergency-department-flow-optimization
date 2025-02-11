@@ -163,6 +163,6 @@ void test_cases::test_set_additional_symptoms()
     QVERIFY(!symptoms.hasAdditionalSymptoms());
 }
 
-//QTEST_MAIN(test_cases)
+QTEST_MAIN(test_cases)
 
-//#include "test_cases.moc"
+#include "moc_test_cases.cpp"
