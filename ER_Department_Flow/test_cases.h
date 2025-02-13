@@ -17,6 +17,16 @@ class test_cases: public QObject
         test_cases();
 
     private slots:
+        //Patient Tests
+        void testDefaultConstructor();
+        void testParameterizedConstructor();
+        void testSettersAndGetters();
+        void testSetAndGetDOB();
+        void testSetAndGetInsurance();
+        void testSetAndGetMedicalHistory();
+        void testHasInsurance();
+        void testSymptomsAccess();
+
         //Department Tests
         void testAddPatient();
         void testRemovePatient();
