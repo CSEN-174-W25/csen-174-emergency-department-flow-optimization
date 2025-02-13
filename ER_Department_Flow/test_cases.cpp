@@ -1,10 +1,114 @@
 #include "test_cases.h"
+#include "ui_nurselogin.h"
 //#include <QtTest>
 
 test_cases::test_cases()
 {
 
 }
+
+void test_cases::testAddPatient()
+{
+    Department dept("cardiacDept");
+    dept.addPatient(1, 5);
+
+    auto queue = dept.getQueue();
+    QCOMPARE(queue.size(), 1);
+    QCOMPARE(queue[0].patientId, 1);
+    QCOMPARE(queue[0].priority, 5);
+}
+
+// Test removing a patient
+void test_cases::testRemovePatient()
+{
+    Department dept("respiratoryDept");
+    dept.addPatient(1, 3);
+    dept.removePatient(1);
+
+    auto queue = dept.getQueue();
+    QCOMPARE(queue.size(), 0);
+}
+
+// Test updating patient priority
+void test_cases::testUpdatePatientPriority()
+{
+    Department dept("generalDept");
+    dept.addPatient(1, 3);
+    dept.updatePatientPriority(1, 8);
+
+    auto queue = dept.getQueue();
+    QCOMPARE(queue.size(), 1);
+    QCOMPARE(queue[0].priority, 8);
+}
+
+// Test getting queue
+void test_cases::testGetQueue()
+{
+    Department dept("generalDept");
+    dept.addPatient(1, 4);
+    dept.addPatient(2, 7);
+
+    auto queue = dept.getQueue();
+    QCOMPARE(queue.size(), 2);
+}
+
+// Test getting department name
+void test_cases::testGetName()
+{
+    Department dept("generalDept");
+    QCOMPARE(dept.getName(), std::string("generalDept"));
+}
+
+// Test transferring a patient
+void test_cases::testTransferPatient()
+{
+    Department deptA("generalDept");
+    Department deptB("respiratoryDept");
+
+    deptA.addPatient(1, 6);
+    deptA.transferPatient(1, deptB);
+
+    auto queueA = deptA.getQueue();
+    auto queueB = deptB.getQueue();
+
+    QCOMPARE(queueA.size(), 0);
+    QCOMPARE(queueB.size(), 1);
+    QCOMPARE(queueB[0].patientId, 1);
+    QCOMPARE(queueB[0].priority, 6);
+}
+
+void test_cases::testValidateCredentials()
+{
+    NurseLogin loginDialog;
+
+    QVERIFY(loginDialog.validateCredentials("nurse", "password")); // Correct credentials
+    QVERIFY(!loginDialog.validateCredentials("wrongUser", "password")); // Wrong username
+    QVERIFY(!loginDialog.validateCredentials("nurse", "wrongPass")); // Wrong password
+    QVERIFY(!loginDialog.validateCredentials("", "")); // Empty credentials
+}
+
+// Test clicking the login button with valid credentials
+void test_cases::testLoginButtonClicked_validCredentials()
+{
+    NurseLogin loginDialog;
+
+    // Simulate entering valid credentials
+    loginDialog.ui->usernameInput->setText("nurse");
+    loginDialog.ui->passwordInput->setText("password");
+
+    // Simulate button click
+    loginDialog.on_loginButton_clicked();
+
+    // Check if nurseInterface was created
+    QVERIFY(loginDialog.nurseInterface != nullptr);
+    if (loginDialog.nurseInterface) {
+        QVERIFY(loginDialog.nurseInterface->isVisible());
+    }
+
+    // Check that login dialog is actually hidden
+    QVERIFY(!loginDialog.isVisible());
+}
+
 
 void test_cases::test_add_symptom()
 {
@@ -162,6 +266,7 @@ void test_cases::test_set_additional_symptoms()
     symptoms.setAdditionalSymptoms(false);
     QVERIFY(!symptoms.hasAdditionalSymptoms());
 }
+
 
 QTEST_MAIN(test_cases)
 

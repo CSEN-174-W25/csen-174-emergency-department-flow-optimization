@@ -5,25 +5,26 @@
 #include "nurseinterface.h"
 
 namespace Ui {
-class NurseLogin;
+    class NurseLogin;
 }
 
 class NurseLogin : public QDialog
 {
     Q_OBJECT
 
-public:
-    explicit NurseLogin(QWidget *parent = nullptr);
-    ~NurseLogin();
+    public:
+        explicit NurseLogin(QWidget *parent = nullptr);
+        ~NurseLogin();
+        friend class test_cases;
 
-private slots:
-    void on_loginButton_clicked();
-    void on_cancelButton_clicked();
+    private slots:
+        void on_loginButton_clicked();
+        void on_cancelButton_clicked();
 
-private:
-    Ui::NurseLogin *ui;
-    NurseInterface *nurseInterface;
-    
-    bool validateCredentials(const QString& username, const QString& password);
+    private:
+        Ui::NurseLogin *ui;
+        NurseInterface *nurseInterface;
+
+        bool validateCredentials(const QString& username, const QString& password);
 };
 #endif

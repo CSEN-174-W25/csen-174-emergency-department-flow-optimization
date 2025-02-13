@@ -10,6 +10,7 @@ release/patientdatabase.o
 release/patientform.o
 release/symptom_definition.o
 release/symptoms.o
+release/test_cases.o
 release/moc_mainwindow.o
 release/moc_nurseinterface.o
 release/moc_nurselogin.o

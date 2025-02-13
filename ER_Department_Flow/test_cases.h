@@ -3,8 +3,12 @@
 
 #include <QObject>
 #include <QTest>
+#include <QSignalSpy>
+
 #include "symptoms.h"
 #include "symptom_definition.h"
+#include "department.h"
+#include "nurselogin.h"
 
 class test_cases: public QObject
 {
@@ -13,10 +17,19 @@ class test_cases: public QObject
         test_cases();
 
     private slots:
-        //Nurse Interface Tests
+        //Department Tests
+        void testAddPatient();
+        void testRemovePatient();
+        void testUpdatePatientPriority();
+        void testGetQueue();
+        void testGetName();
+        void testTransferPatient();
 
+        //Nurse Login Tests
+        void testValidateCredentials();
+        void testLoginButtonClicked_validCredentials();
 
-        // Symptoms tests
+        //Symptoms Tests
         void test_add_symptom();
         void test_remove_symptom();
         void test_has_symptom();
