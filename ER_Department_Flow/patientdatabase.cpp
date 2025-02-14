@@ -30,6 +30,3 @@ Patient* PatientDatabase::findPatient(int patientId)
     }
     return nullptr;
 }
-
-// If you need a constructor or other functions, add them here.
-// The default constructor is private in the header, so no further definition is needed.

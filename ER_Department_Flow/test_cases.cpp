@@ -7,6 +7,87 @@ test_cases::test_cases()
 
 }
 
+void test_cases::testDefaultConstructor() {
+    Patient p;
+    QCOMPARE(p.getPatientId(), 0);
+    QVERIFY(p.getName().empty());
+    QVERIFY(p.getGender().empty());
+    QVERIFY(p.getContact().empty());
+    QVERIFY(p.getEmergencyContact().empty());
+    QVERIFY(p.getHomeAddr().empty());
+}
+
+void test_cases::testParameterizedConstructor() {
+    Patient p(1, "John Doe", "Male", "1234567890", "0987654321", "123 Street");
+    QCOMPARE(p.getPatientId(), 1);
+    QCOMPARE(p.getName(), std::string("John Doe"));
+    QCOMPARE(p.getGender(), std::string("Male"));
+    QCOMPARE(p.getContact(), std::string("1234567890"));
+    QCOMPARE(p.getEmergencyContact(), std::string("0987654321"));
+    QCOMPARE(p.getHomeAddr(), std::string("123 Street"));
+}
+
+void test_cases::testSettersAndGetters() {
+    Patient p;
+    p.setPatientId(10);
+    p.setName("Alice");
+    p.setGender("Female");
+    p.setContact("5551234");
+    p.setEmergencyContact("5555678");
+    p.setHomeAddr("456 Avenue");
+
+    QCOMPARE(p.getPatientId(), 10);
+    QCOMPARE(p.getName(), std::string("Alice"));
+    QCOMPARE(p.getGender(), std::string("Female"));
+    QCOMPARE(p.getContact(), std::string("5551234"));
+    QCOMPARE(p.getEmergencyContact(), std::string("5555678"));
+    QCOMPARE(p.getHomeAddr(), std::string("456 Avenue"));
+}
+
+void test_cases::testSetAndGetDOB() {
+    Patient p;
+    QDate dob(1990, 5, 20);
+    p.setDOB(dob);
+    QCOMPARE(p.getDOB(), dob);
+}
+
+void test_cases::testSetAndGetInsurance() {
+    Patient p;
+    p.setInsuranceProvider("Blue Cross");
+    p.setInsuranceMemberId("A12345");
+
+    QCOMPARE(p.getInsuranceProvider(), std::string("Blue Cross"));
+    QCOMPARE(p.getInsuranceMemberId(), std::string("A12345"));
+}
+
+void test_cases::testSetAndGetMedicalHistory() {
+    Patient p;
+    p.setMedicalHistory("Diabetes");
+    p.setFamilyHistory("Heart Disease");
+    p.setCurrentMedications("Metformin");
+    p.setAllergies("Peanuts");
+
+    QCOMPARE(p.getMedicalHistory(), std::string("Diabetes"));
+    QCOMPARE(p.getFamilyHistory(), std::string("Heart Disease"));
+    QCOMPARE(p.getCurrentMedications(), std::string("Metformin"));
+    QCOMPARE(p.getAllergies(), std::string("Peanuts"));
+}
+
+void test_cases::testHasInsurance() {
+    Patient p;
+    QVERIFY(!p.hasInsurance());
+    p.setInsuranceProvider("Cigna");
+    QVERIFY(p.hasInsurance());
+}
+
+void test_cases::testSymptomsAccess() {
+    Patient p;
+    Symptoms& symptoms = p.getSymptoms();
+    const Symptoms& constSymptoms = p.getSymptoms();
+    QVERIFY(&symptoms == &constSymptoms);
+}
+
+
 void test_cases::testAddPatient()
 {
     Department dept("cardiacDept");
