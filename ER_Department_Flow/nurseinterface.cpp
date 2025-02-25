@@ -92,6 +92,10 @@ void NurseInterface::updateDepartmentView(const Department& dept, QTableWidget* 
             symptomsStr += QString::fromStdString(symptom.symptomName);
         }
         table->setItem(row, 4, new QTableWidgetItem(symptomsStr));
+
+        for(int i = 0; i < 4; i++)
+            table->item(row, i)->setBackground(Qt::black);
+        
         
         // Color code based on priority
         if (entry.priority >= 8) {
