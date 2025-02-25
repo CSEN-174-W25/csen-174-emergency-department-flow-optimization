@@ -10,6 +10,12 @@ void Department::addPatient(int patientId, int priority) {
     _patientIndex[patientId] = entry;
 }
 
+void Department::addPatient(int patientId, int priority, std::time_t entryTime) {
+    QueueEntry entry{patientId, priority, entryTime};
+    _priorityQueue.push(entry);
+    _patientIndex[patientId] = entry;
+}
+
 void Department::removePatient(int patientId) {
     _patientIndex.erase(patientId);
     // Rebuild the priority queue from the updated _patientIndex.

@@ -26,6 +26,7 @@ public:
     
     // Queue management
     void addPatient(int patientId, int priority);
+    void addPatient(int patientId, int priority, std::time_t entryTime);
     void removePatient(int patientId);
     void updatePatientPriority(int patientId, int newPriority);
     std::vector<QueueEntry> getQueue() const;
