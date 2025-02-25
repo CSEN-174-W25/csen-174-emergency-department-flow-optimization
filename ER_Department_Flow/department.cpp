@@ -69,6 +69,7 @@ void Department::transferPatient(int patientId, Department& targetDept) {
     if (it != _patientIndex.end()) {
         // Retrieve the current priority from the entry.
         int priority = it->second.priority;
+        std::time_t entryTime = it->second.entryTime;
 
         // Remove the patient from the current department.
         // Note: Removing from the _priorityQueue directly is non-trivial,
@@ -79,6 +80,6 @@ void Department::transferPatient(int patientId, Department& targetDept) {
         // or simply allow the stale entry to remain if it won’t affect behavior.
 
         // Add the patient to the target department with the same priority.
-        targetDept.addPatient(patientId, priority);
+        targetDept.addPatient(patientId, priority, entryTime);
     }
 }
