@@ -7,6 +7,7 @@ class Symptoms {
 public:
     struct PatientSymptom {
         std::string symptomId;
+        std::string symptomName; //added symptomName
         int severityRating;  // 1-5
         
         int calculateUrgency() const;
@@ -20,7 +21,7 @@ public:
 
     Symptoms() = default;
 
-    bool addSymptom(const std::string& symptomId, int severityRating);
+    bool addSymptom(const std::string& symptomId, const std::string& symptomName, int severityRating);
     void removeSymptom(const std::string& symptomId);
     bool hasSymptom(const std::string& symptomId) const;
     

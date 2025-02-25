@@ -89,7 +89,7 @@ void NurseInterface::updateDepartmentView(const Department& dept, QTableWidget* 
         QString symptomsStr;
         for (const auto& symptom : patient->getSymptoms().getSymptoms()) {
             if (!symptomsStr.isEmpty()) symptomsStr += ", ";
-            symptomsStr += QString::fromStdString(symptom.symptomId);
+            symptomsStr += QString::fromStdString(symptom.symptomName);
         }
         table->setItem(row, 4, new QTableWidgetItem(symptomsStr));
         
