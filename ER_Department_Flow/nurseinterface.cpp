@@ -260,7 +260,7 @@ void NurseInterface::on_logoutButton_clicked()
     if (QMessageBox::question(this, "Logout", "Are you sure you want to logout?",
                             QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes) {
         this->parentWidget()->show();
-        this->hide();
+        this->close();
     }
 }
 
