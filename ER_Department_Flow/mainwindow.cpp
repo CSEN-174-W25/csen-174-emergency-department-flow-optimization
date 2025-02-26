@@ -31,9 +31,15 @@ void MainWindow::on_patientButton_clicked()
 
 void MainWindow::on_nurseButton_clicked()
 {
-    if (!nurseLogin) {
+    /*if (!nurseLogin) {
         nurseLogin = new NurseLogin(this);
     }
     nurseLogin->show();
+    this->hide();*/
+    NurseLogin *newForm = new NurseLogin(this);
+    newForm->setWindowFlags(Qt::Window);
+    newForm->show();
+    newForm->activateWindow();
+    newForm->raise();
     this->hide();
 }

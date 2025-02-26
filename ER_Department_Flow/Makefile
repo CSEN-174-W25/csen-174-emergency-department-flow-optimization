@@ -1007,8 +1007,35 @@ moc_test_cases.cpp: test_cases.h \
 		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/qobject.h \
 		../../Qt/6.7.2/macos/lib/QtTest.framework/Headers/QTest \
 		../../Qt/6.7.2/macos/lib/QtTest.framework/Headers/qtest.h \
+		../../Qt/6.7.2/macos/lib/QtTest.framework/Headers/QSignalSpy \
+		../../Qt/6.7.2/macos/lib/QtTest.framework/Headers/qsignalspy.h \
 		symptoms.h \
 		symptom_definition.h \
+		department.h \
+		main.h \
+		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/QDate \
+		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/qdatetime.h \
+		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/QString \
+		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/qstring.h \
+		nurselogin.h \
+		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/QDialog \
+		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/qdialog.h \
+		nurseinterface.h \
+		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/QMainWindow \
+		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/QTableWidget \
+		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/qtablewidget.h \
+		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/QTimer \
+		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/qtimer.h \
+		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/QInputDialog \
+		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/qinputdialog.h \
+		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/QHeaderView \
+		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/qheaderview.h \
+		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/QAbstractItemView \
+		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/qabstractitemview.h \
+		../../Qt/6.7.2/macos/lib/QtGui.framework/Headers/QColor \
+		../../Qt/6.7.2/macos/lib/QtGui.framework/Headers/qcolor.h \
+		patient.h \
 		../../Qt/6.7.2/macos/libexec/moc
 	/Users/luisvillalta/Qt/6.7.2/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=15 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/luisvillalta/Qt/6.7.2/macos/mkspecs/macx-clang -I'/Users/luisvillalta/CSEN 174/ER_Department_Flow' -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtWidgets.framework/Headers -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtGui.framework/Headers -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtTest.framework/Headers -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtCore.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/luisvillalta/Qt/6.7.2/macos/lib test_cases.h -o moc_test_cases.cpp
 
@@ -1268,8 +1295,36 @@ test_cases.o: test_cases.cpp test_cases.h \
 		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/qobject.h \
 		../../Qt/6.7.2/macos/lib/QtTest.framework/Headers/QTest \
 		../../Qt/6.7.2/macos/lib/QtTest.framework/Headers/qtest.h \
+		../../Qt/6.7.2/macos/lib/QtTest.framework/Headers/QSignalSpy \
+		../../Qt/6.7.2/macos/lib/QtTest.framework/Headers/qsignalspy.h \
 		symptoms.h \
 		symptom_definition.h \
+		department.h \
+		main.h \
+		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/QDate \
+		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/qdatetime.h \
+		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/QString \
+		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/qstring.h \
+		nurselogin.h \
+		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/QDialog \
+		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/qdialog.h \
+		nurseinterface.h \
+		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/QMainWindow \
+		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/QTableWidget \
+		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/qtablewidget.h \
+		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/QTimer \
+		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/qtimer.h \
+		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/QInputDialog \
+		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/qinputdialog.h \
+		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/QHeaderView \
+		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/qheaderview.h \
+		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/QAbstractItemView \
+		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/qabstractitemview.h \
+		../../Qt/6.7.2/macos/lib/QtGui.framework/Headers/QColor \
+		../../Qt/6.7.2/macos/lib/QtGui.framework/Headers/qcolor.h \
+		patient.h \
+		ui_nurselogin.h \
 		moc_test_cases.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o test_cases.o test_cases.cpp
 

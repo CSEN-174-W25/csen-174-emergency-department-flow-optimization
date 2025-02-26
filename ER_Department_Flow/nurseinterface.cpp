@@ -89,9 +89,13 @@ void NurseInterface::updateDepartmentView(const Department& dept, QTableWidget* 
         QString symptomsStr;
         for (const auto& symptom : patient->getSymptoms().getSymptoms()) {
             if (!symptomsStr.isEmpty()) symptomsStr += ", ";
-            symptomsStr += QString::fromStdString(symptom.symptomId);
+            symptomsStr += QString::fromStdString(symptom.symptomName);
         }
         table->setItem(row, 4, new QTableWidgetItem(symptomsStr));
+
+        for(int i = 0; i < 4; i++)
+            table->item(row, i)->setBackground(Qt::black);
+        
         
         // Color code based on priority
         if (entry.priority >= 8) {
@@ -260,7 +264,7 @@ void NurseInterface::on_logoutButton_clicked()
     if (QMessageBox::question(this, "Logout", "Are you sure you want to logout?",
                             QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes) {
         this->parentWidget()->show();
-        this->hide();
+        this->close();
     }
 }
 

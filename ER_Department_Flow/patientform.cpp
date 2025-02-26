@@ -203,12 +203,13 @@ void PatientForm::on_addSymptomButton_clicked()
     QListWidgetItem* currentItem = ui->symptomList->currentItem();
     if (currentItem) {
         // Retrieve the stored symptom ID from the item data
+        QString symptomName = currentItem->text();
         QString symptomId = currentItem->data(Qt::UserRole).toString();
         int severity = ui->severitySpinBox->value();
 
         // Add to patient's symptoms using the symptom ID.
         bool added = currentPatient.getSymptoms().addSymptom(
-            symptomId.toStdString(), severity
+            symptomId.toStdString(), symptomName.toStdString(), severity
             );
 
         if (!added) {
@@ -234,8 +235,7 @@ void PatientForm::updateSymptomList()
 {
     ui->selectedSymptomList->clear();
     for (const auto& symptom : currentPatient.getSymptoms().getSymptoms()) {
-        QString itemText = QString::fromStdString(symptom.symptomId) + 
-                          " - Severity: " + QString::number(symptom.severityRating);
+        QString itemText = QString::fromStdString(symptom.symptomName) + " - Severity: " + QString::number(symptom.severityRating);
         ui->selectedSymptomList->addItem(itemText);
     }
     

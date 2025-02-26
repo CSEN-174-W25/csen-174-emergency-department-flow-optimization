@@ -26,7 +26,7 @@ void NurseLogin::on_loginButton_clicked()
             nurseInterface = new NurseInterface(this);
         }
         nurseInterface->show();
-        this->hide();
+        this->close();
     } else {
         QMessageBox::warning(this, "Login Failed", 
                            "Invalid username or password.");
@@ -36,7 +36,7 @@ void NurseLogin::on_loginButton_clicked()
 void NurseLogin::on_cancelButton_clicked()
 {
     this->parentWidget()->show();
-    this->hide();
+    this->close();
 }
 
 bool NurseLogin::validateCredentials(const QString& username, const QString& password)

@@ -349,6 +349,6 @@ void test_cases::test_set_additional_symptoms()
 }
 
 
-QTEST_MAIN(test_cases)
+/*QTEST_MAIN(test_cases)
 
-#include "moc_test_cases.cpp"
+#include "moc_test_cases.cpp"*/

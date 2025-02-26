@@ -2,8 +2,8 @@
 #include <algorithm>
 
 const size_t Symptoms::MAX_SYMPTOMS;
-
-bool Symptoms::addSymptom(const std::string& symptomId, int severityRating) {
+//Added symptomName
+bool Symptoms::addSymptom(const std::string& symptomId, const std::string& symptomName, int severityRating) {
     if (_symptoms.size() >= MAX_SYMPTOMS || severityRating < 1 || severityRating > 5) {
         return false;
     }
@@ -18,7 +18,7 @@ bool Symptoms::addSymptom(const std::string& symptomId, int severityRating) {
         return false;
     }
     
-    PatientSymptom symptom{symptomId, severityRating};
+    PatientSymptom symptom{symptomId, symptomName, severityRating};
     _symptoms.push_back(symptom);
     return true;
 }
