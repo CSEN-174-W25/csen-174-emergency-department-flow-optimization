@@ -2,3 +2,4 @@
 .DS_Store
 *.o
 moc_*.cpp
+ui_*.h
