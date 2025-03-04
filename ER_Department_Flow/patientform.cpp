@@ -75,15 +75,24 @@ void PatientForm::on_backButton_clicked()
 
 void PatientForm::on_cancelButton_clicked()
 {
-    qDebug() << "Cancel button clicked.";
-    // If the main window is the parent, re-show it
-    QWidget* parent = this->parentWidget();
-    if (parent) {
-        parent->show();
-    }
+    // Ask the user to confirm cancellation
+    QMessageBox::StandardButton reply = QMessageBox::question(this,
+                                                              "Confirm Cancellation",
+                                                              "Are you sure you want to cancel? Any information you've entered will be lost.",
+                                                              QMessageBox::Yes | QMessageBox::No);
 
-    // Then close the patient form
-    this->close();
+    if (reply == QMessageBox::Yes) {
+        qDebug() << "Cancel button clicked, confirmed by user.";
+        // If the main window is the parent, re-show it
+        QWidget* parent = this->parentWidget();
+        if (parent) {
+            parent->show();
+        }
+
+        // Then close the patient form
+        this->close();
+    }
+    // If No, just return and do nothing
 }
 
 void PatientForm::setupPersonalInfoPage()
