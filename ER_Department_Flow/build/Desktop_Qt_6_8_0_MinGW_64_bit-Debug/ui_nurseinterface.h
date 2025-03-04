@@ -82,6 +82,7 @@ public:
         verticalLayout_2->setObjectName("verticalLayout_2");
         cardiacTable = new QTableWidget(cardiacTab);
         cardiacTable->setObjectName("cardiacTable");
+        cardiacTable->setEditTriggers(QAbstractItemView::EditTrigger::NoEditTriggers);
         cardiacTable->setSelectionMode(QAbstractItemView::SelectionMode::SingleSelection);
         cardiacTable->setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectRows);
 
@@ -94,6 +95,7 @@ public:
         verticalLayout_3->setObjectName("verticalLayout_3");
         respiratoryTable = new QTableWidget(respiratoryTab);
         respiratoryTable->setObjectName("respiratoryTable");
+        respiratoryTable->setEditTriggers(QAbstractItemView::EditTrigger::NoEditTriggers);
         respiratoryTable->setSelectionMode(QAbstractItemView::SelectionMode::SingleSelection);
         respiratoryTable->setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectRows);
 
@@ -106,6 +108,7 @@ public:
         verticalLayout_4->setObjectName("verticalLayout_4");
         generalTable = new QTableWidget(generalTab);
         generalTable->setObjectName("generalTable");
+        generalTable->setEditTriggers(QAbstractItemView::EditTrigger::NoEditTriggers);
         generalTable->setSelectionMode(QAbstractItemView::SelectionMode::SingleSelection);
         generalTable->setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectRows);
 
@@ -171,7 +174,7 @@ public:
         NurseInterface->setCentralWidget(centralwidget);
         menubar = new QMenuBar(NurseInterface);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 1024, 21));
+        menubar->setGeometry(QRect(0, 0, 1024, 20));
         NurseInterface->setMenuBar(menubar);
         statusbar = new QStatusBar(NurseInterface);
         statusbar->setObjectName("statusbar");
@@ -179,7 +182,7 @@ public:
 
         retranslateUi(NurseInterface);
 
-        departmentTabs->setCurrentIndex(2);
+        departmentTabs->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(NurseInterface);

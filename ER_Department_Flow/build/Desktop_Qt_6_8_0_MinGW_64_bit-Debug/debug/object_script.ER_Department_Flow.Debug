@@ -10,7 +10,6 @@ debug/patientdatabase.o
 debug/patientform.o
 debug/symptom_definition.o
 debug/symptoms.o
-debug/test_cases.o
 debug/moc_mainwindow.o
 debug/moc_nurseinterface.o
 debug/moc_nurselogin.o

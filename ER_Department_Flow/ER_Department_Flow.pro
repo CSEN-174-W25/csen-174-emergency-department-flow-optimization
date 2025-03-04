@@ -21,7 +21,7 @@ SOURCES += \
     patientform.cpp \
     symptom_definition.cpp \
     symptoms.cpp \
-    test_cases.cpp
+
 
 HEADERS += \
     department.h \
@@ -36,7 +36,7 @@ HEADERS += \
     patientform.h \
     symptom_definition.h \
     symptoms.h \
-    test_cases.h
+
 
 FORMS += \
     mainwindow.ui \

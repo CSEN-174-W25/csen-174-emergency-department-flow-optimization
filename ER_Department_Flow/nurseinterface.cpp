@@ -2,12 +2,14 @@
 #include "ui_nurseinterface.h"
 #include "patientdatabase.h"
 #include "globaldepartments.h"
+#include "symptom_definition.h"
 #include <QMessageBox>
 #include <QTableWidget>
 #include <QTableWidgetItem>
 #include <QDateTime>
 #include <QString>
 #include <QDebug>
+#include <QComboBox>
 
 NurseInterface::NurseInterface(QWidget *parent) :
     QMainWindow(parent),
@@ -38,24 +40,24 @@ void NurseInterface::setupDepartmentViews()
 {
     // Setup table headers and properties for each department view
     QStringList headers;
-    headers << "Patient ID" << "Name" << "Priority" << "Wait Time" << "Symptoms";
+    headers << "Patient ID" << "Name" << "Priority" << "Wait Time" << "Symptoms" << "Add Symptoms";
     
     // Cardiac Department Table
-    ui->cardiacTable->setColumnCount(5);
+    ui->cardiacTable->setColumnCount(6);
     ui->cardiacTable->setHorizontalHeaderLabels(headers);
     ui->cardiacTable->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     ui->cardiacTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->cardiacTable->setSelectionMode(QAbstractItemView::SingleSelection);
     
     // Respiratory Department Table
-    ui->respiratoryTable->setColumnCount(5);
+    ui->respiratoryTable->setColumnCount(6);
     ui->respiratoryTable->setHorizontalHeaderLabels(headers);
     ui->respiratoryTable->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     ui->respiratoryTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->respiratoryTable->setSelectionMode(QAbstractItemView::SingleSelection);
     
     // General Department Table
-    ui->generalTable->setColumnCount(5);
+    ui->generalTable->setColumnCount(6);
     ui->generalTable->setHorizontalHeaderLabels(headers);
     ui->generalTable->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     ui->generalTable->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -65,7 +67,7 @@ void NurseInterface::setupDepartmentViews()
 void NurseInterface::updateDepartmentView(const Department& dept, QTableWidget* table)
 {
     table->setRowCount(0);  // Clear existing rows
-    
+
     auto queue = dept.getQueue();
     for (const auto& entry : queue) {
         int row = table->rowCount();
@@ -80,10 +82,19 @@ void NurseInterface::updateDepartmentView(const Department& dept, QTableWidget* 
         QString waitTime = calculateWaitTime(entryTime);
         
         // Add patient information to table
-        table->setItem(row, 0, new QTableWidgetItem(QString::number(entry.patientId)));
-        table->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(patient->getName())));
-        table->setItem(row, 2, new QTableWidgetItem(QString::number(entry.priority)));
-        table->setItem(row, 3, new QTableWidgetItem(waitTime));
+        QTableWidgetItem* patientId = new QTableWidgetItem(QString::number(entry.patientId));
+        QTableWidgetItem* patientName = new QTableWidgetItem(QString::fromStdString(patient->getName()));
+        QTableWidgetItem* patientPriority = new QTableWidgetItem(QString::number(entry.priority));
+        QTableWidgetItem* patientWaitTime = new QTableWidgetItem(waitTime);
+        patientId -> setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+        patientName -> setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+        patientPriority -> setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+        patientWaitTime -> setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+
+        table->setItem(row, 0, patientId);
+        table->setItem(row, 1, patientName);
+        table->setItem(row, 2, patientPriority);
+        table->setItem(row, 3, patientWaitTime);
         
         // Create symptoms string
         QString symptomsStr;
@@ -91,22 +102,40 @@ void NurseInterface::updateDepartmentView(const Department& dept, QTableWidget* 
             if (!symptomsStr.isEmpty()) symptomsStr += ", ";
             symptomsStr += QString::fromStdString(symptom.symptomName);
         }
-        table->setItem(row, 4, new QTableWidgetItem(symptomsStr));
+        QTableWidgetItem* symptomsName = new QTableWidgetItem(symptomsStr);
+        symptomsName -> setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
-        for(int i = 0; i < 4; i++)
+        table->setItem(row, 4, symptomsName);
+
+        // Create symptoms combo box
+        QComboBox* symptomsComboBox = new QComboBox();
+        symptomsComboBox -> addItem("");
+
+        std::set<std::string> patientSymptomIds;
+        for (const auto& patientSymptom : patient->getSymptoms().getSymptoms())
+            patientSymptomIds.insert(patientSymptom.symptomId);
+
+        for (const auto& symptom : SymptomDefinition::getPresetSymptoms())
+            if (patientSymptomIds.find(symptom.id) == patientSymptomIds.end())
+                symptomsComboBox -> addItem(QString::fromStdString(symptom.name));
+
+        table->setCellWidget(row, 5, symptomsComboBox);
+
+        for (int i = 0; i < 5; i++)
             table->item(row, i)->setBackground(Qt::black);
         
         
         // Color code based on priority
         if (entry.priority >= 8) {
             // High priority - red background
-            for (int col = 0; col < table->columnCount(); ++col) {
+            for (int col = 0; col < table->columnCount() - 1; ++col) {
                 table->item(row, col)->setBackground(QColor(255, 200, 200));
             }
         }
+
         else if (entry.priority >= 5) {
             // Medium priority - yellow background
-            for (int col = 0; col < table->columnCount(); ++col) {
+            for (int col = 0; col < table->columnCount() - 1; ++col) {
                 table->item(row, col)->setBackground(QColor(255, 255, 200));
             }
         }
