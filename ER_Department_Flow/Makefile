@@ -15,9 +15,9 @@ EQ            = =
 CC            = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
 CXX           = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
 DEFINES       = -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_TESTLIB_LIB -DQT_CORE_LIB -DQT_TESTCASE_BUILDDIR='"/Users/luisvillalta/CSEN 174/ER_Department_Flow"'
-CFLAGS        = -pipe -g $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=11.0 -Wall -Wextra $(DEFINES)
-CXXFLAGS      = -pipe -stdlib=libc++ -g -std=gnu++1z $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=11.0 -Wall -Wextra $(DEFINES)
-INCPATH       = -I. -I../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers -I../../Qt/6.7.2/macos/lib/QtGui.framework/Headers -I../../Qt/6.7.2/macos/lib/QtTest.framework/Headers -I../../Qt/6.7.2/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/System/Library/Frameworks/AGL.framework/Headers -I../../Qt/6.7.2/macos/mkspecs/macx-clang -F/Users/luisvillalta/Qt/6.7.2/macos/lib
+CFLAGS        = -pipe -g $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk -mmacosx-version-min=11.0 -Wall -Wextra $(DEFINES)
+CXXFLAGS      = -pipe -stdlib=libc++ -g -std=gnu++1z $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk -mmacosx-version-min=11.0 -Wall -Wextra $(DEFINES)
+INCPATH       = -I. -I../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers -I../../Qt/6.7.2/macos/lib/QtGui.framework/Headers -I../../Qt/6.7.2/macos/lib/QtTest.framework/Headers -I../../Qt/6.7.2/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/Library/Frameworks/AGL.framework/Headers -I../../Qt/6.7.2/macos/mkspecs/macx-clang -F/Users/luisvillalta/Qt/6.7.2/macos/lib
 QMAKE         = /Users/luisvillalta/Qt/6.7.2/macos/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -39,7 +39,7 @@ COMPRESS      = gzip -9f
 DISTNAME      = ER_Department_Flow1.0.0
 DISTDIR = /Users/luisvillalta/CSEN\ 174/ER_Department_Flow/.tmp/ER_Department_Flow1.0.0
 LINK          = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
-LFLAGS        = -stdlib=libc++ -headerpad_max_install_names $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=11.0 -Wl,-rpath,@executable_path/../Frameworks -Wl,-rpath,/Users/luisvillalta/Qt/6.7.2/macos/lib
+LFLAGS        = -stdlib=libc++ -headerpad_max_install_names $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk -mmacosx-version-min=11.0 -Wl,-rpath,@executable_path/../Frameworks -Wl,-rpath,/Users/luisvillalta/Qt/6.7.2/macos/lib
 LIBS          = $(SUBLIBS) -F/Users/luisvillalta/Qt/6.7.2/macos/lib -framework QtWidgets -framework QtGui -framework ImageIO -framework Metal -framework QtTest -framework Security -framework AppKit -framework ApplicationServices -framework Foundation -framework QtCore -framework IOKit -framework DiskArbitration -framework AGL -framework OpenGL   
 AR            = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar cq
 RANLIB        = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib -s
@@ -64,10 +64,11 @@ SOURCES       = department.cpp \
 		patientform.cpp \
 		symptom_definition.cpp \
 		symptoms.cpp \
-		test_cases.cpp moc_mainwindow.cpp \
+		vitals_dialog.cpp moc_mainwindow.cpp \
 		moc_nurseinterface.cpp \
 		moc_nurselogin.cpp \
-		moc_patientform.cpp
+		moc_patientform.cpp \
+		moc_vitals_dialog.cpp
 OBJECTS       = department.o \
 		globaldepartments.o \
 		main.o \
@@ -80,11 +81,12 @@ OBJECTS       = department.o \
 		patientform.o \
 		symptom_definition.o \
 		symptoms.o \
-		test_cases.o \
+		vitals_dialog.o \
 		moc_mainwindow.o \
 		moc_nurseinterface.o \
 		moc_nurselogin.o \
-		moc_patientform.o
+		moc_patientform.o \
+		moc_vitals_dialog.o
 DIST          = ER_Department_Flow.pro.user \
 		../../Qt/6.7.2/macos/mkspecs/features/spec_pre.prf \
 		../../Qt/6.7.2/macos/mkspecs/features/device_config.prf \
@@ -329,7 +331,7 @@ DIST          = ER_Department_Flow.pro.user \
 		patientform.h \
 		symptom_definition.h \
 		symptoms.h \
-		test_cases.h department.cpp \
+		vitals_dialog.h department.cpp \
 		globaldepartments.cpp \
 		main.cpp \
 		mainwindow.cpp \
@@ -341,14 +343,14 @@ DIST          = ER_Department_Flow.pro.user \
 		patientform.cpp \
 		symptom_definition.cpp \
 		symptoms.cpp \
-		test_cases.cpp
+		vitals_dialog.cpp
 QMAKE_TARGET  = ER_Department_Flow
 DESTDIR       = 
 TARGET        = ER_Department_Flow.app/Contents/MacOS/ER_Department_Flow
 
 ####### Custom Variables
 EXPORT_QMAKE_MAC_SDK = macosx
-EXPORT_QMAKE_MAC_SDK_VERSION = 14.5
+EXPORT_QMAKE_MAC_SDK_VERSION = 15.2
 EXPORT_QMAKE_XCODE_DEVELOPER_PATH = /Applications/Xcode.app/Contents/Developer
 EXPORT__QMAKE_STASH_ = /Users/luisvillalta/CSEN 174/ER_Department_Flow/.qmake.stash
 EXPORT_VALID_ARCHS = x86_64 arm64
@@ -362,7 +364,7 @@ include /Users/luisvillalta/Qt/6.7.2/macos/mkspecs/features/mac/sdk.mk
 first: all
 ####### Build rules
 
-ER_Department_Flow.app/Contents/MacOS/ER_Department_Flow: ui_mainwindow.h ui_nurseinterface.h ui_nurselogin.h ui_patientform.h $(OBJECTS)  
+ER_Department_Flow.app/Contents/MacOS/ER_Department_Flow: ui_mainwindow.h ui_nurseinterface.h ui_nurselogin.h ui_patientform.h ui_vitals_dialog.h $(OBJECTS)  
 	@test -d ER_Department_Flow.app/Contents/MacOS/ || mkdir -p ER_Department_Flow.app/Contents/MacOS/
 	$(LINK) $(LFLAGS) -o $(TARGET)  $(OBJECTS) $(OBJCOMP) $(LIBS)
 
@@ -863,9 +865,9 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents department.h globaldepartments.h main.h mainwindow.h nurse.h nurseinterface.h nurselogin.h patient.h patientdatabase.h patientform.h symptom_definition.h symptoms.h test_cases.h $(DISTDIR)/
-	$(COPY_FILE) --parents department.cpp globaldepartments.cpp main.cpp mainwindow.cpp nurse.cpp nurseinterface.cpp nurselogin.cpp patient.cpp patientdatabase.cpp patientform.cpp symptom_definition.cpp symptoms.cpp test_cases.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.ui nurseinterface.ui nurselogin.ui patientform.ui $(DISTDIR)/
+	$(COPY_FILE) --parents department.h globaldepartments.h main.h mainwindow.h nurse.h nurseinterface.h nurselogin.h patient.h patientdatabase.h patientform.h symptom_definition.h symptoms.h vitals_dialog.h $(DISTDIR)/
+	$(COPY_FILE) --parents department.cpp globaldepartments.cpp main.cpp mainwindow.cpp nurse.cpp nurseinterface.cpp nurselogin.cpp patient.cpp patientdatabase.cpp patientform.cpp symptom_definition.cpp symptoms.cpp vitals_dialog.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.ui nurseinterface.ui nurselogin.ui patientform.ui vitals_dialog.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -894,9 +896,9 @@ benchmark: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_nurseinterface.cpp moc_nurselogin.cpp moc_patientform.cpp moc_test_cases.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_nurseinterface.cpp moc_nurselogin.cpp moc_patientform.cpp moc_vitals_dialog.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_nurseinterface.cpp moc_nurselogin.cpp moc_patientform.cpp moc_test_cases.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_nurseinterface.cpp moc_nurselogin.cpp moc_patientform.cpp moc_vitals_dialog.cpp
 moc_mainwindow.cpp: mainwindow.h \
 		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/QMainWindow \
 		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/qmainwindow.h \
@@ -929,7 +931,7 @@ moc_mainwindow.cpp: mainwindow.h \
 		../../Qt/6.7.2/macos/lib/QtGui.framework/Headers/qcolor.h \
 		department.h \
 		../../Qt/6.7.2/macos/libexec/moc
-	/Users/luisvillalta/Qt/6.7.2/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=15 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/luisvillalta/Qt/6.7.2/macos/mkspecs/macx-clang -I'/Users/luisvillalta/CSEN 174/ER_Department_Flow' -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtWidgets.framework/Headers -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtGui.framework/Headers -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtTest.framework/Headers -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtCore.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/luisvillalta/Qt/6.7.2/macos/lib mainwindow.h -o moc_mainwindow.cpp
+	/Users/luisvillalta/Qt/6.7.2/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/luisvillalta/Qt/6.7.2/macos/mkspecs/macx-clang -I'/Users/luisvillalta/CSEN 174/ER_Department_Flow' -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtWidgets.framework/Headers -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtGui.framework/Headers -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtTest.framework/Headers -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtCore.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/luisvillalta/Qt/6.7.2/macos/lib mainwindow.h -o moc_mainwindow.cpp
 
 moc_nurseinterface.cpp: nurseinterface.h \
 		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/QMainWindow \
@@ -956,7 +958,7 @@ moc_nurseinterface.cpp: nurseinterface.h \
 		symptom_definition.h \
 		patient.h \
 		../../Qt/6.7.2/macos/libexec/moc
-	/Users/luisvillalta/Qt/6.7.2/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=15 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/luisvillalta/Qt/6.7.2/macos/mkspecs/macx-clang -I'/Users/luisvillalta/CSEN 174/ER_Department_Flow' -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtWidgets.framework/Headers -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtGui.framework/Headers -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtTest.framework/Headers -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtCore.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/luisvillalta/Qt/6.7.2/macos/lib nurseinterface.h -o moc_nurseinterface.cpp
+	/Users/luisvillalta/Qt/6.7.2/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/luisvillalta/Qt/6.7.2/macos/mkspecs/macx-clang -I'/Users/luisvillalta/CSEN 174/ER_Department_Flow' -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtWidgets.framework/Headers -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtGui.framework/Headers -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtTest.framework/Headers -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtCore.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/luisvillalta/Qt/6.7.2/macos/lib nurseinterface.h -o moc_nurseinterface.cpp
 
 moc_nurselogin.cpp: nurselogin.h \
 		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/QDialog \
@@ -986,7 +988,7 @@ moc_nurselogin.cpp: nurselogin.h \
 		symptom_definition.h \
 		patient.h \
 		../../Qt/6.7.2/macos/libexec/moc
-	/Users/luisvillalta/Qt/6.7.2/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=15 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/luisvillalta/Qt/6.7.2/macos/mkspecs/macx-clang -I'/Users/luisvillalta/CSEN 174/ER_Department_Flow' -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtWidgets.framework/Headers -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtGui.framework/Headers -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtTest.framework/Headers -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtCore.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/luisvillalta/Qt/6.7.2/macos/lib nurselogin.h -o moc_nurselogin.cpp
+	/Users/luisvillalta/Qt/6.7.2/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/luisvillalta/Qt/6.7.2/macos/mkspecs/macx-clang -I'/Users/luisvillalta/CSEN 174/ER_Department_Flow' -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtWidgets.framework/Headers -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtGui.framework/Headers -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtTest.framework/Headers -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtCore.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/luisvillalta/Qt/6.7.2/macos/lib nurselogin.h -o moc_nurselogin.cpp
 
 moc_patientform.cpp: patientform.h \
 		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/QWidget \
@@ -1000,52 +1002,29 @@ moc_patientform.cpp: patientform.h \
 		symptoms.h \
 		symptom_definition.h \
 		../../Qt/6.7.2/macos/libexec/moc
-	/Users/luisvillalta/Qt/6.7.2/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=15 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/luisvillalta/Qt/6.7.2/macos/mkspecs/macx-clang -I'/Users/luisvillalta/CSEN 174/ER_Department_Flow' -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtWidgets.framework/Headers -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtGui.framework/Headers -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtTest.framework/Headers -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtCore.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/luisvillalta/Qt/6.7.2/macos/lib patientform.h -o moc_patientform.cpp
+	/Users/luisvillalta/Qt/6.7.2/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/luisvillalta/Qt/6.7.2/macos/mkspecs/macx-clang -I'/Users/luisvillalta/CSEN 174/ER_Department_Flow' -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtWidgets.framework/Headers -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtGui.framework/Headers -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtTest.framework/Headers -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtCore.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/luisvillalta/Qt/6.7.2/macos/lib patientform.h -o moc_patientform.cpp
 
-moc_test_cases.cpp: test_cases.h \
-		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/QObject \
-		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/qobject.h \
-		../../Qt/6.7.2/macos/lib/QtTest.framework/Headers/QTest \
-		../../Qt/6.7.2/macos/lib/QtTest.framework/Headers/qtest.h \
-		../../Qt/6.7.2/macos/lib/QtTest.framework/Headers/QSignalSpy \
-		../../Qt/6.7.2/macos/lib/QtTest.framework/Headers/qsignalspy.h \
-		symptoms.h \
-		symptom_definition.h \
-		department.h \
+moc_vitals_dialog.cpp: vitals_dialog.h \
+		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/QDialog \
+		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/qdialog.h \
+		patient.h \
 		main.h \
 		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/QDate \
 		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/qdatetime.h \
 		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/QString \
 		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/qstring.h \
-		nurselogin.h \
-		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/QDialog \
-		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/qdialog.h \
-		nurseinterface.h \
-		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/QMainWindow \
-		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/qmainwindow.h \
-		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/QTableWidget \
-		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/qtablewidget.h \
-		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/QTimer \
-		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/qtimer.h \
-		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/QInputDialog \
-		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/qinputdialog.h \
-		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/QHeaderView \
-		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/qheaderview.h \
-		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/QAbstractItemView \
-		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/qabstractitemview.h \
-		../../Qt/6.7.2/macos/lib/QtGui.framework/Headers/QColor \
-		../../Qt/6.7.2/macos/lib/QtGui.framework/Headers/qcolor.h \
-		patient.h \
+		symptoms.h \
+		symptom_definition.h \
 		../../Qt/6.7.2/macos/libexec/moc
-	/Users/luisvillalta/Qt/6.7.2/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=15 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/luisvillalta/Qt/6.7.2/macos/mkspecs/macx-clang -I'/Users/luisvillalta/CSEN 174/ER_Department_Flow' -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtWidgets.framework/Headers -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtGui.framework/Headers -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtTest.framework/Headers -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtCore.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/luisvillalta/Qt/6.7.2/macos/lib test_cases.h -o moc_test_cases.cpp
+	/Users/luisvillalta/Qt/6.7.2/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/luisvillalta/Qt/6.7.2/macos/mkspecs/macx-clang -I'/Users/luisvillalta/CSEN 174/ER_Department_Flow' -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtWidgets.framework/Headers -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtGui.framework/Headers -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtTest.framework/Headers -I/Users/luisvillalta/Qt/6.7.2/macos/lib/QtCore.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/luisvillalta/Qt/6.7.2/macos/lib vitals_dialog.h -o moc_vitals_dialog.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h ui_nurseinterface.h ui_nurselogin.h ui_patientform.h
+compiler_uic_make_all: ui_mainwindow.h ui_nurseinterface.h ui_nurselogin.h ui_patientform.h ui_vitals_dialog.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h ui_nurseinterface.h ui_nurselogin.h ui_patientform.h
+	-$(DEL_FILE) ui_mainwindow.h ui_nurseinterface.h ui_nurselogin.h ui_patientform.h ui_vitals_dialog.h
 ui_mainwindow.h: mainwindow.ui \
 		../../Qt/6.7.2/macos/libexec/uic
 	/Users/luisvillalta/Qt/6.7.2/macos/libexec/uic mainwindow.ui -o ui_mainwindow.h
@@ -1061,6 +1040,10 @@ ui_nurselogin.h: nurselogin.ui \
 ui_patientform.h: patientform.ui \
 		../../Qt/6.7.2/macos/libexec/uic
 	/Users/luisvillalta/Qt/6.7.2/macos/libexec/uic patientform.ui -o ui_patientform.h
+
+ui_vitals_dialog.h: vitals_dialog.ui \
+		../../Qt/6.7.2/macos/libexec/uic
+	/Users/luisvillalta/Qt/6.7.2/macos/libexec/uic vitals_dialog.ui -o ui_vitals_dialog.h
 
 compiler_rez_source_make_all:
 compiler_rez_source_clean:
@@ -1201,12 +1184,17 @@ nurseinterface.o: nurseinterface.cpp nurseinterface.h \
 		ui_nurseinterface.h \
 		patientdatabase.h \
 		globaldepartments.h \
+		vitals_dialog.h \
+		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/QDialog \
+		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/qdialog.h \
 		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/QMessageBox \
 		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/qmessagebox.h \
 		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/QTableWidgetItem \
 		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/QDateTime \
 		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/QDebug \
-		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/qdebug.h
+		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/qdebug.h \
+		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/QComboBox \
+		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/qcombobox.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o nurseinterface.o nurseinterface.cpp
 
 nurselogin.o: nurselogin.cpp nurselogin.h \
@@ -1290,43 +1278,25 @@ symptoms.o: symptoms.cpp symptoms.h \
 		symptom_definition.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o symptoms.o symptoms.cpp
 
-test_cases.o: test_cases.cpp test_cases.h \
-		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/QObject \
-		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/qobject.h \
-		../../Qt/6.7.2/macos/lib/QtTest.framework/Headers/QTest \
-		../../Qt/6.7.2/macos/lib/QtTest.framework/Headers/qtest.h \
-		../../Qt/6.7.2/macos/lib/QtTest.framework/Headers/QSignalSpy \
-		../../Qt/6.7.2/macos/lib/QtTest.framework/Headers/qsignalspy.h \
-		symptoms.h \
-		symptom_definition.h \
-		department.h \
+vitals_dialog.o: vitals_dialog.cpp vitals_dialog.h \
+		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/QDialog \
+		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/qdialog.h \
+		patient.h \
 		main.h \
 		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/QDate \
 		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/qdatetime.h \
 		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/QString \
 		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/qstring.h \
-		nurselogin.h \
-		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/QDialog \
-		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/qdialog.h \
-		nurseinterface.h \
-		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/QMainWindow \
-		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/qmainwindow.h \
-		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/QTableWidget \
-		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/qtablewidget.h \
-		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/QTimer \
-		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/qtimer.h \
-		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/QInputDialog \
-		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/qinputdialog.h \
-		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/QHeaderView \
-		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/qheaderview.h \
-		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/QAbstractItemView \
-		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/qabstractitemview.h \
-		../../Qt/6.7.2/macos/lib/QtGui.framework/Headers/QColor \
-		../../Qt/6.7.2/macos/lib/QtGui.framework/Headers/qcolor.h \
-		patient.h \
-		ui_nurselogin.h \
-		moc_test_cases.cpp
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o test_cases.o test_cases.cpp
+		symptoms.h \
+		symptom_definition.h \
+		ui_vitals_dialog.h \
+		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/QMessageBox \
+		../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/QRegularExpression \
+		../../Qt/6.7.2/macos/lib/QtCore.framework/Headers/qregularexpression.h \
+		../../Qt/6.7.2/macos/lib/QtGui.framework/Headers/QRegularExpressionValidator \
+		../../Qt/6.7.2/macos/lib/QtGui.framework/Headers/qvalidator.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o vitals_dialog.o vitals_dialog.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
@@ -1339,6 +1309,9 @@ moc_nurselogin.o: moc_nurselogin.cpp
 
 moc_patientform.o: moc_patientform.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_patientform.o moc_patientform.cpp
+
+moc_vitals_dialog.o: moc_vitals_dialog.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_vitals_dialog.o moc_vitals_dialog.cpp
 
 ####### Install
 

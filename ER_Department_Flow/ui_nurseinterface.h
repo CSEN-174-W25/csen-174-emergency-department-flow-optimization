@@ -123,7 +123,7 @@ public:
         viewPatientButton->setMinimumSize(QSize(150, 30));
 
         horizontalLayout->addWidget(viewPatientButton);
-        
+
         recordVitalsButton = new QPushButton(centralwidget);
         recordVitalsButton->setObjectName("recordVitalsButton");
         recordVitalsButton->setMinimumSize(QSize(150, 30));
@@ -178,7 +178,7 @@ public:
         NurseInterface->setCentralWidget(centralwidget);
         menubar = new QMenuBar(NurseInterface);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 1024, 21));
+        menubar->setGeometry(QRect(0, 0, 1024, 24));
         NurseInterface->setMenuBar(menubar);
         statusbar = new QStatusBar(NurseInterface);
         statusbar->setObjectName("statusbar");
@@ -199,7 +199,7 @@ public:
         departmentTabs->setTabText(departmentTabs->indexOf(cardiacTab), QCoreApplication::translate("NurseInterface", "Cardiac Department", nullptr));
         departmentTabs->setTabText(departmentTabs->indexOf(respiratoryTab), QCoreApplication::translate("NurseInterface", "Respiratory Department", nullptr));
         departmentTabs->setTabText(departmentTabs->indexOf(generalTab), QCoreApplication::translate("NurseInterface", "General Department", nullptr));
-        viewPatientButton->setText(QCoreApplication::translate("NurseInterface", "View Patient Details", nullptr));
+        viewPatientButton->setText(QCoreApplication::translate("NurseInterface", "Test", nullptr));
         recordVitalsButton->setText(QCoreApplication::translate("NurseInterface", "Record Vitals", nullptr));
         updatePriorityButton->setText(QCoreApplication::translate("NurseInterface", "Update Priority", nullptr));
         changeDepartmentButton->setText(QCoreApplication::translate("NurseInterface", "Change Department", nullptr));

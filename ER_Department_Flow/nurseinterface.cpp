@@ -123,10 +123,17 @@ void NurseInterface::updateDepartmentView(const Department& dept, QTableWidget* 
         symptomsName->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
         table->setItem(row, 5, symptomsName); // Moved to column 5
 
-        // Create symptoms combo box (moved to column 6)
+        // Create symptoms combo box
         QComboBox* symptomsComboBox = new QComboBox();
         symptomsComboBox->addItem("");
-        // ... rest of the combo box setup
+        std::set<std::string> patientSymptomIds;
+        for (const auto& patientSymptom : patient->getSymptoms().getSymptoms())
+            patientSymptomIds.insert(patientSymptom.symptomId);
+
+        for (const auto& symptom : SymptomDefinition::getPresetSymptoms())
+            if (patientSymptomIds.find(symptom.id) == patientSymptomIds.end())
+                symptomsComboBox -> addItem(QString::fromStdString(symptom.name));
+
         table->setCellWidget(row, 6, symptomsComboBox);
 
         // Row highlighting based on priority and vitals
@@ -146,7 +153,7 @@ void NurseInterface::updateDepartmentView(const Department& dept, QTableWidget* 
         }
 
         // Apply the row color
-        for (int col = 0; col < 5; ++col) {
+        for (int col = 0; col < 6; ++col) {
             table->item(row, col)->setBackground(rowColor);
         }
     }
@@ -313,6 +320,14 @@ void NurseInterface::on_changeDepartmentButton_clicked()
 
 void NurseInterface::on_refreshButton_clicked()
 {
+
+    QString question = "Are you sure you want to add";
+
+    if (QMessageBox::question(this, "Add Symptom", "Are you sure you want to logout?",
+                              QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes) {
+        this->parentWidget()->show();
+        this->close();
+    }
     updateQueues();
 }
 
