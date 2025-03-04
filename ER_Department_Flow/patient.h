@@ -68,6 +68,22 @@ class Patient {
         Symptoms& getSymptoms() { return _symptoms; }
         const Symptoms& getSymptoms() const { return _symptoms; }
 
+        // Vital signs accessors
+        bool hasVitalsRecorded() const { return _vitalsRecorded; }
+        int getHeartRate() const { return _heartRate; }
+        std::string getBloodPressure() const { return _bloodPressure; }
+        int getBloodSugar() const { return _bloodSugar; }
+        float getBodyTemperature() const { return _bodyTemperature; }
+        int getBloodOxygen() const { return _bloodOxygen; }
+
+        // Vital signs mutators
+        void setHeartRate(int rate) { _heartRate = rate; }
+        void setBloodPressure(const std::string& bp) { _bloodPressure = bp; }
+        void setBloodSugar(int sugar) { _bloodSugar = sugar; }
+        void setBodyTemperature(float temp) { _bodyTemperature = temp; }
+        void setBloodOxygen(int oxygen) { _bloodOxygen = oxygen; }
+        void setVitalsRecorded(bool recorded) { _vitalsRecorded = recorded; }
+
     private:
         int _patientId;
 
@@ -93,5 +109,13 @@ class Patient {
 
         // Symptoms
         Symptoms _symptoms;
+
+        // Vital signs
+        bool _vitalsRecorded = false;
+        int _heartRate = 0;          // beats per minute
+        std::string _bloodPressure = ""; // format: "120/80"
+        int _bloodSugar = 0;         // mg/dL
+        float _bodyTemperature = 0;  // Celsius
+        int _bloodOxygen = 0;        // percentage (SpO2)
 };
 #endif

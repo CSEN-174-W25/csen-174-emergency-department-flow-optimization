@@ -21,6 +21,7 @@ SOURCES += \
     patientform.cpp \
     symptom_definition.cpp \
     symptoms.cpp \
+    vitals_dialog.cpp
 
 
 HEADERS += \
@@ -36,13 +37,15 @@ HEADERS += \
     patientform.h \
     symptom_definition.h \
     symptoms.h \
+    vitals_dialog.h
 
 
 FORMS += \
     mainwindow.ui \
     nurseinterface.ui \
     nurselogin.ui \
-    patientform.ui
+    patientform.ui \
+    vitals_dialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

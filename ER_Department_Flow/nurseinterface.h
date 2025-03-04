@@ -33,6 +33,8 @@ private slots:
     // Auto-refresh timer slot
     void updateQueues();
 
+    void on_recordVitalsButton_clicked();
+
 private:
     Ui::NurseInterface *ui;
     QTimer *refreshTimer;
@@ -50,5 +52,7 @@ private:
 
     Patient* findPatient(int patientId);
     QString calculateWaitTime(const QDateTime& entryTime);
+
+    void recordPatientVitals(int patientId);
 };
 #endif

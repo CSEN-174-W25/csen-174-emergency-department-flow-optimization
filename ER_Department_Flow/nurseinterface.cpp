@@ -3,6 +3,7 @@
 #include "patientdatabase.h"
 #include "globaldepartments.h"
 #include "symptom_definition.h"
+#include "vitals_dialog.h"
 #include <QMessageBox>
 #include <QTableWidget>
 #include <QTableWidgetItem>
@@ -40,30 +41,31 @@ void NurseInterface::setupDepartmentViews()
 {
     // Setup table headers and properties for each department view
     QStringList headers;
-    headers << "Patient ID" << "Name" << "Priority" << "Wait Time" << "Symptoms" << "Add Symptoms";
+    headers << "Patient ID" << "Name" << "Priority" << "Wait Time" << "Vitals" << "Symptoms" << "Add Symptoms";
     
     // Cardiac Department Table
-    ui->cardiacTable->setColumnCount(6);
+    ui->cardiacTable->setColumnCount(7);
     ui->cardiacTable->setHorizontalHeaderLabels(headers);
     ui->cardiacTable->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     ui->cardiacTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->cardiacTable->setSelectionMode(QAbstractItemView::SingleSelection);
     
     // Respiratory Department Table
-    ui->respiratoryTable->setColumnCount(6);
+    ui->respiratoryTable->setColumnCount(7);
     ui->respiratoryTable->setHorizontalHeaderLabels(headers);
     ui->respiratoryTable->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     ui->respiratoryTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->respiratoryTable->setSelectionMode(QAbstractItemView::SingleSelection);
     
     // General Department Table
-    ui->generalTable->setColumnCount(6);
+    ui->generalTable->setColumnCount(7);
     ui->generalTable->setHorizontalHeaderLabels(headers);
     ui->generalTable->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     ui->generalTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->generalTable->setSelectionMode(QAbstractItemView::SingleSelection);
 }
 
+// Update the updateDepartmentView function to show the vitals status:
 void NurseInterface::updateDepartmentView(const Department& dept, QTableWidget* table)
 {
     table->setRowCount(0);  // Clear existing rows
@@ -72,30 +74,45 @@ void NurseInterface::updateDepartmentView(const Department& dept, QTableWidget* 
     for (const auto& entry : queue) {
         int row = table->rowCount();
         table->insertRow(row);
-        
+
         // Get patient information
-        Patient* patient = findPatient(entry.patientId);  // You'll need to implement this
+        Patient* patient = findPatient(entry.patientId);
         if (!patient) continue;
-        
+
         // Calculate wait time
         QDateTime entryTime = QDateTime::fromSecsSinceEpoch(entry.entryTime);
         QString waitTime = calculateWaitTime(entryTime);
-        
+
         // Add patient information to table
         QTableWidgetItem* patientId = new QTableWidgetItem(QString::number(entry.patientId));
         QTableWidgetItem* patientName = new QTableWidgetItem(QString::fromStdString(patient->getName()));
         QTableWidgetItem* patientPriority = new QTableWidgetItem(QString::number(entry.priority));
         QTableWidgetItem* patientWaitTime = new QTableWidgetItem(waitTime);
-        patientId -> setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-        patientName -> setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-        patientPriority -> setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-        patientWaitTime -> setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
+        // Add vitals status
+        QTableWidgetItem* vitalsStatus = new QTableWidgetItem();
+        if (patient->hasVitalsRecorded()) {
+            vitalsStatus->setText("Recorded");
+            vitalsStatus->setBackground(QColor(200, 255, 200)); // Light green
+        } else {
+            vitalsStatus->setText("Needed");
+            vitalsStatus->setBackground(QColor(255, 200, 200)); // Light red
+        }
+
+        // Set flags
+        patientId->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+        patientName->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+        patientPriority->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+        patientWaitTime->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+        vitalsStatus->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+
+        // Set items in table
         table->setItem(row, 0, patientId);
         table->setItem(row, 1, patientName);
         table->setItem(row, 2, patientPriority);
         table->setItem(row, 3, patientWaitTime);
-        
+        table->setItem(row, 4, vitalsStatus); // New column for vitals
+
         // Create symptoms string
         QString symptomsStr;
         for (const auto& symptom : patient->getSymptoms().getSymptoms()) {
@@ -103,44 +120,37 @@ void NurseInterface::updateDepartmentView(const Department& dept, QTableWidget* 
             symptomsStr += QString::fromStdString(symptom.symptomName);
         }
         QTableWidgetItem* symptomsName = new QTableWidgetItem(symptomsStr);
-        symptomsName -> setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+        symptomsName->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+        table->setItem(row, 5, symptomsName); // Moved to column 5
 
-        table->setItem(row, 4, symptomsName);
-
-        // Create symptoms combo box
+        // Create symptoms combo box (moved to column 6)
         QComboBox* symptomsComboBox = new QComboBox();
-        symptomsComboBox -> addItem("");
+        symptomsComboBox->addItem("");
+        // ... rest of the combo box setup
+        table->setCellWidget(row, 6, symptomsComboBox);
 
-        std::set<std::string> patientSymptomIds;
-        for (const auto& patientSymptom : patient->getSymptoms().getSymptoms())
-            patientSymptomIds.insert(patientSymptom.symptomId);
-
-        for (const auto& symptom : SymptomDefinition::getPresetSymptoms())
-            if (patientSymptomIds.find(symptom.id) == patientSymptomIds.end())
-                symptomsComboBox -> addItem(QString::fromStdString(symptom.name));
-
-        table->setCellWidget(row, 5, symptomsComboBox);
-
-        for (int i = 0; i < 5; i++)
-            table->item(row, i)->setBackground(Qt::black);
-        
-        
-        // Color code based on priority
-        if (entry.priority >= 8) {
+        // Row highlighting based on priority and vitals
+        QColor rowColor;
+        if (!patient->hasVitalsRecorded()) {
+            // Patients without vitals get a light purple background to stand out
+            rowColor = QColor(240, 220, 240);
+        } else if (entry.priority >= 8) {
             // High priority - red background
-            for (int col = 0; col < table->columnCount() - 1; ++col) {
-                table->item(row, col)->setBackground(QColor(255, 200, 200));
-            }
+            rowColor = QColor(255, 200, 200);
+        } else if (entry.priority >= 5) {
+            // Medium priority - yellow background
+            rowColor = QColor(255, 255, 200);
+        } else {
+            // Normal priority
+            rowColor = QColor(255, 255, 255);
         }
 
-        else if (entry.priority >= 5) {
-            // Medium priority - yellow background
-            for (int col = 0; col < table->columnCount() - 1; ++col) {
-                table->item(row, col)->setBackground(QColor(255, 255, 200));
-            }
+        // Apply the row color
+        for (int col = 0; col < 5; ++col) {
+            table->item(row, col)->setBackground(rowColor);
         }
     }
-    
+
     table->sortItems(2, Qt::DescendingOrder);  // Sort by priority
 }
 
@@ -173,31 +183,49 @@ void NurseInterface::viewPatientDetails(int patientId)
         QMessageBox::warning(this, "Error", "Patient not found.");
         return;
     }
-    
+
     QString details = QString("Patient Details:\n\n"
-                            "Name: %1\n"
-                            "ID: %2\n"
-                            "Gender: %3\n"
-                            "DOB: %4\n\n"
-                            "Contact: %5\n"
-                            "Emergency Contact: %6\n\n"
-                            "Insurance Provider: %7\n"
-                            "Member ID: %8\n\n"
-                            "Medical History: %9\n\n"
-                            "Current Medications: %10\n"
-                            "Allergies: %11")
-                             .arg(QString::fromStdString(patient->getName()))
-                             .arg(patient->getPatientId())
-                             .arg(QString::fromStdString(patient->getGender()))
-                             .arg(patient->getDOB().toString("MM/dd/yyyy"))
-                             .arg(QString::fromStdString(patient->getContact()))
-                             .arg(QString::fromStdString(patient->getEmergencyContact()))
-                             .arg(QString::fromStdString(patient->getInsuranceProvider()))
-                             .arg(QString::fromStdString(patient->getInsuranceMemberId()))
-                             .arg(QString::fromStdString(patient->getMedicalHistory()))
-                             .arg(QString::fromStdString(patient->getCurrentMedications()))
-                             .arg(QString::fromStdString(patient->getAllergies()));
-    
+                              "Name: %1\n"
+                              "ID: %2\n"
+                              "Gender: %3\n"
+                              "DOB: %4\n\n"
+                              "Contact: %5\n"
+                              "Emergency Contact: %6\n\n"
+                              "Insurance Provider: %7\n"
+                              "Member ID: %8\n\n")
+                          .arg(QString::fromStdString(patient->getName()))
+                          .arg(patient->getPatientId())
+                          .arg(QString::fromStdString(patient->getGender()))
+                          .arg(patient->getDOB().toString("MM/dd/yyyy"))
+                          .arg(QString::fromStdString(patient->getContact()))
+                          .arg(QString::fromStdString(patient->getEmergencyContact()))
+                          .arg(QString::fromStdString(patient->getInsuranceProvider()))
+                          .arg(QString::fromStdString(patient->getInsuranceMemberId()));
+
+    // Add vitals information if available
+    if (patient->hasVitalsRecorded()) {
+        details += QString("Vital Signs:\n"
+                           "Heart Rate: %1 bpm\n"
+                           "Blood Pressure: %2 mmHg\n"
+                           "Blood Sugar: %3 mg/dL\n"
+                           "Body Temperature: %4 °C\n"
+                           "Blood Oxygen: %5%\n\n")
+                       .arg(patient->getHeartRate())
+                       .arg(QString::fromStdString(patient->getBloodPressure()))
+                       .arg(patient->getBloodSugar())
+                       .arg(QString::number(patient->getBodyTemperature(), 'f', 1))
+                       .arg(patient->getBloodOxygen());
+    } else {
+        details += "Vital Signs: Not yet recorded\n\n";
+    }
+
+    details += QString("Medical History: %1\n\n"
+                       "Current Medications: %2\n"
+                       "Allergies: %3")
+                   .arg(QString::fromStdString(patient->getMedicalHistory()))
+                   .arg(QString::fromStdString(patient->getCurrentMedications()))
+                   .arg(QString::fromStdString(patient->getAllergies()));
+
     QMessageBox::information(this, "Patient Details", details);
 }
 
@@ -354,4 +382,46 @@ Patient* NurseInterface::findPatient(int patientId)
 
     return p;
     //return nullptr;
+}
+
+// Add a helper function for recording vitals:
+void NurseInterface::recordPatientVitals(int patientId)
+{
+    Patient* patient = findPatient(patientId);
+    if (!patient) {
+        QMessageBox::warning(this, "Error", "Patient not found.");
+        return;
+    }
+
+    // Open the vitals dialog
+    VitalsDialog dialog(patient, this);
+    dialog.setWindowTitle("Record Vitals - " + QString::fromStdString(patient->getName()));
+
+    // If the dialog is accepted (Save button clicked), refresh the queue
+    if (dialog.exec() == QDialog::Accepted) {
+        updateQueues();
+    }
+}
+
+// Add a new button handler for recording vitals:
+void NurseInterface::on_recordVitalsButton_clicked()
+{
+    QTableWidget* currentTable = nullptr;
+
+    // Determine which tab is active
+    if (ui->departmentTabs->currentWidget() == ui->cardiacTab) {
+        currentTable = ui->cardiacTable;
+    } else if (ui->departmentTabs->currentWidget() == ui->respiratoryTab) {
+        currentTable = ui->respiratoryTable;
+    } else if (ui->departmentTabs->currentWidget() == ui->generalTab) {
+        currentTable = ui->generalTable;
+    }
+
+    if (!currentTable || !currentTable->currentItem()) {
+        QMessageBox::warning(this, "Error", "Please select a patient to record vitals.");
+        return;
+    }
+
+    int patientId = currentTable->item(currentTable->currentRow(), 0)->text().toInt();
+    recordPatientVitals(patientId);
 }

@@ -44,6 +44,7 @@ public:
     QTableWidget *generalTable;
     QHBoxLayout *horizontalLayout;
     QPushButton *viewPatientButton;
+    QPushButton *recordVitalsButton;
     QPushButton *updatePriorityButton;
     QPushButton *changeDepartmentButton;
     QSpacerItem *horizontalSpacer;
@@ -122,6 +123,12 @@ public:
         viewPatientButton->setMinimumSize(QSize(150, 30));
 
         horizontalLayout->addWidget(viewPatientButton);
+        
+        recordVitalsButton = new QPushButton(centralwidget);
+        recordVitalsButton->setObjectName("recordVitalsButton");
+        recordVitalsButton->setMinimumSize(QSize(150, 30));
+
+        horizontalLayout->addWidget(recordVitalsButton);
 
         updatePriorityButton = new QPushButton(centralwidget);
         updatePriorityButton->setObjectName("updatePriorityButton");
@@ -179,7 +186,7 @@ public:
 
         retranslateUi(NurseInterface);
 
-        departmentTabs->setCurrentIndex(2);
+        departmentTabs->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(NurseInterface);
@@ -193,6 +200,7 @@ public:
         departmentTabs->setTabText(departmentTabs->indexOf(respiratoryTab), QCoreApplication::translate("NurseInterface", "Respiratory Department", nullptr));
         departmentTabs->setTabText(departmentTabs->indexOf(generalTab), QCoreApplication::translate("NurseInterface", "General Department", nullptr));
         viewPatientButton->setText(QCoreApplication::translate("NurseInterface", "View Patient Details", nullptr));
+        recordVitalsButton->setText(QCoreApplication::translate("NurseInterface", "Record Vitals", nullptr));
         updatePriorityButton->setText(QCoreApplication::translate("NurseInterface", "Update Priority", nullptr));
         changeDepartmentButton->setText(QCoreApplication::translate("NurseInterface", "Change Department", nullptr));
         refreshButton->setText(QCoreApplication::translate("NurseInterface", "Refresh", nullptr));

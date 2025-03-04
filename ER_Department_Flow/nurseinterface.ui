@@ -34,7 +34,7 @@
     <item>
      <widget class="QTabWidget" name="departmentTabs">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="cardiacTab">
        <attribute name="title">
@@ -43,9 +43,6 @@
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
          <widget class="QTableWidget" name="cardiacTable">
-          <property name="editTriggers">
-           <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
-          </property>
           <property name="selectionMode">
            <enum>QAbstractItemView::SelectionMode::SingleSelection</enum>
           </property>
@@ -63,9 +60,6 @@
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
          <widget class="QTableWidget" name="respiratoryTable">
-          <property name="editTriggers">
-           <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
-          </property>
           <property name="selectionMode">
            <enum>QAbstractItemView::SelectionMode::SingleSelection</enum>
           </property>
@@ -83,9 +77,6 @@
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
          <widget class="QTableWidget" name="generalTable">
-          <property name="editTriggers">
-           <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
-          </property>
           <property name="selectionMode">
            <enum>QAbstractItemView::SelectionMode::SingleSelection</enum>
           </property>
@@ -110,6 +101,19 @@
         </property>
         <property name="text">
          <string>View Patient Details</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="recordVitalsButton">
+        <property name="minimumSize">
+         <size>
+          <width>150</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Record Vitals</string>
         </property>
        </widget>
       </item>
