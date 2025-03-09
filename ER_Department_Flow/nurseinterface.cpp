@@ -42,27 +42,41 @@ void NurseInterface::setupDepartmentViews()
     // Setup table headers and properties for each department view
     QStringList headers;
     headers << "Patient ID" << "Name" << "Priority" << "Wait Time" << "Vitals" << "Symptoms";
-    
+
+    // Define style to remove default selection tint
+    QString tableStyle = "QTableWidget {"
+                         "  selection-background-color: #3D3D3D;"
+                         "}"
+                         "QTableWidget::item:!selected {"
+                         "  background-color: transparent;"
+                         "}";
+
     // Cardiac Department Table
     ui->cardiacTable->setColumnCount(6);
     ui->cardiacTable->setHorizontalHeaderLabels(headers);
     ui->cardiacTable->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     ui->cardiacTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->cardiacTable->setSelectionMode(QAbstractItemView::SingleSelection);
-    
+    ui->cardiacTable->setAlternatingRowColors(false);
+    ui->cardiacTable->setStyleSheet(tableStyle);
+
     // Respiratory Department Table
     ui->respiratoryTable->setColumnCount(6);
     ui->respiratoryTable->setHorizontalHeaderLabels(headers);
     ui->respiratoryTable->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     ui->respiratoryTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->respiratoryTable->setSelectionMode(QAbstractItemView::SingleSelection);
-    
+    ui->respiratoryTable->setAlternatingRowColors(false);
+    ui->respiratoryTable->setStyleSheet(tableStyle);
+
     // General Department Table
     ui->generalTable->setColumnCount(6);
     ui->generalTable->setHorizontalHeaderLabels(headers);
     ui->generalTable->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     ui->generalTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->generalTable->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->generalTable->setAlternatingRowColors(false);
+    ui->generalTable->setStyleSheet(tableStyle);
 }
 
 // Update the updateDepartmentView function to show the vitals status:
@@ -122,27 +136,6 @@ void NurseInterface::updateDepartmentView(const Department& dept, QTableWidget* 
         QTableWidgetItem* symptomsName = new QTableWidgetItem(symptomsStr);
         symptomsName->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
         table->setItem(row, 5, symptomsName); // Moved to column 5
-
-        // Row highlighting based on priority and vitals
-        QColor rowColor;
-        if (!patient->hasVitalsRecorded()) {
-            // Patients without vitals get a light purple background to stand out
-            rowColor = QColor(240, 220, 240);
-        } else if (entry.priority >= 8) {
-            // High priority - red background
-            rowColor = QColor(255, 200, 200);
-        } else if (entry.priority >= 5) {
-            // Medium priority - yellow background
-            rowColor = QColor(255, 255, 200);
-        } else {
-            // Normal priority
-            rowColor = QColor(255, 255, 255);
-        }
-
-        // Apply the row color
-        for (int col = 0; col < 6; ++col) {
-            table->item(row, col)->setBackground(rowColor);
-        }
     }
 
     table->sortItems(2, Qt::DescendingOrder);  // Sort by priority
