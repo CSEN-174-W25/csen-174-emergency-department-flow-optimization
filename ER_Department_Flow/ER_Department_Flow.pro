@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     department.cpp \
+    edit_symptoms_dialog.cpp \
     globaldepartments.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -26,6 +27,7 @@ SOURCES += \
 
 HEADERS += \
     department.h \
+    edit_symptoms_dialog.h \
     globaldepartments.h \
     main.h \
     mainwindow.h \
@@ -41,6 +43,7 @@ HEADERS += \
 
 
 FORMS += \
+    edit_symptoms_dialog.ui \
     mainwindow.ui \
     nurseinterface.ui \
     nurselogin.ui \

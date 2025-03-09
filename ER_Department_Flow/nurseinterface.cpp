@@ -41,24 +41,24 @@ void NurseInterface::setupDepartmentViews()
 {
     // Setup table headers and properties for each department view
     QStringList headers;
-    headers << "Patient ID" << "Name" << "Priority" << "Wait Time" << "Vitals" << "Symptoms" << "Add Symptoms";
+    headers << "Patient ID" << "Name" << "Priority" << "Wait Time" << "Vitals" << "Symptoms";
     
     // Cardiac Department Table
-    ui->cardiacTable->setColumnCount(7);
+    ui->cardiacTable->setColumnCount(6);
     ui->cardiacTable->setHorizontalHeaderLabels(headers);
     ui->cardiacTable->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     ui->cardiacTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->cardiacTable->setSelectionMode(QAbstractItemView::SingleSelection);
     
     // Respiratory Department Table
-    ui->respiratoryTable->setColumnCount(7);
+    ui->respiratoryTable->setColumnCount(6);
     ui->respiratoryTable->setHorizontalHeaderLabels(headers);
     ui->respiratoryTable->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     ui->respiratoryTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->respiratoryTable->setSelectionMode(QAbstractItemView::SingleSelection);
     
     // General Department Table
-    ui->generalTable->setColumnCount(7);
+    ui->generalTable->setColumnCount(6);
     ui->generalTable->setHorizontalHeaderLabels(headers);
     ui->generalTable->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     ui->generalTable->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -122,19 +122,6 @@ void NurseInterface::updateDepartmentView(const Department& dept, QTableWidget* 
         QTableWidgetItem* symptomsName = new QTableWidgetItem(symptomsStr);
         symptomsName->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
         table->setItem(row, 5, symptomsName); // Moved to column 5
-
-        // Create symptoms combo box
-        QComboBox* symptomsComboBox = new QComboBox();
-        symptomsComboBox->addItem("");
-        std::set<std::string> patientSymptomIds;
-        for (const auto& patientSymptom : patient->getSymptoms().getSymptoms())
-            patientSymptomIds.insert(patientSymptom.symptomId);
-
-        for (const auto& symptom : SymptomDefinition::getPresetSymptoms())
-            if (patientSymptomIds.find(symptom.id) == patientSymptomIds.end())
-                symptomsComboBox -> addItem(QString::fromStdString(symptom.name));
-
-        table->setCellWidget(row, 6, symptomsComboBox);
 
         // Row highlighting based on priority and vitals
         QColor rowColor;
@@ -439,4 +426,41 @@ void NurseInterface::on_recordVitalsButton_clicked()
 
     int patientId = currentTable->item(currentTable->currentRow(), 0)->text().toInt();
     recordPatientVitals(patientId);
+}
+
+// In nurseinterface.cpp, add the implementation:
+void NurseInterface::on_editSymptomsButton_clicked()
+{
+    QTableWidget* currentTable = nullptr;
+    Department* currentDept = nullptr;
+
+    // Determine which tab is active
+    if (ui->departmentTabs->currentWidget() == ui->cardiacTab) {
+        currentTable = ui->cardiacTable;
+        currentDept = &cardiacDept;
+    } else if (ui->departmentTabs->currentWidget() == ui->respiratoryTab) {
+        currentTable = ui->respiratoryTable;
+        currentDept = &respiratoryDept;
+    } else if (ui->departmentTabs->currentWidget() == ui->generalTab) {
+        currentTable = ui->generalTable;
+        currentDept = &generalDept;
+    }
+
+    if (!currentTable || !currentTable->currentItem()) {
+        QMessageBox::warning(this, "Error", "Please select a patient to edit symptoms.");
+        return;
+    }
+
+    int patientId = currentTable->item(currentTable->currentRow(), 0)->text().toInt();
+    Patient* patient = findPatient(patientId);
+
+    if (!patient) {
+        QMessageBox::warning(this, "Error", "Patient not found.");
+        return;
+    }
+
+    EditSymptomsDialog dialog(patient, currentDept, this);
+    if (dialog.exec() == QDialog::Accepted) {
+        updateQueues();
+    }
 }

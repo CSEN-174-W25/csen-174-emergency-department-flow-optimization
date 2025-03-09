@@ -21,7 +21,7 @@ public:
 
     Symptoms() = default;
 
-    bool addSymptom(const std::string& symptomId, const std::string& symptomName, int severityRating);
+    bool addSymptom(const std::string& symptomId, const std::string& symptomName, int severityRating, bool nurseOverride = false);
     void removeSymptom(const std::string& symptomId);
     bool hasSymptom(const std::string& symptomId) const;
     

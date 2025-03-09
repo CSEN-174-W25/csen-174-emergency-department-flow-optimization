@@ -10,6 +10,7 @@
 #include <QColor>
 #include "department.h"
 #include "patient.h"
+#include "edit_symptoms_dialog.h"
 
 namespace Ui {
 class NurseInterface;
@@ -29,20 +30,15 @@ private slots:
     void on_updatePriorityButton_clicked();
     void on_changeDepartmentButton_clicked();
     void on_refreshButton_clicked();
+    void on_recordVitalsButton_clicked();
+    void on_editSymptomsButton_clicked();
 
     // Auto-refresh timer slot
     void updateQueues();
 
-    void on_recordVitalsButton_clicked();
-
 private:
     Ui::NurseInterface *ui;
     QTimer *refreshTimer;
-
-    // Department queues
-    //Department cardiacDept;
-    //Department respiratoryDept;
-    //Department generalDept;
 
     void setupDepartmentViews();
     void updateDepartmentView(const Department& dept, QTableWidget* table);

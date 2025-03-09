@@ -2,22 +2,28 @@
 #include <algorithm>
 
 const size_t Symptoms::MAX_SYMPTOMS;
-//Added symptomName
-bool Symptoms::addSymptom(const std::string& symptomId, const std::string& symptomName, int severityRating) {
-    if (_symptoms.size() >= MAX_SYMPTOMS || severityRating < 1 || severityRating > 5) {
+// In symptoms.cpp, update the addSymptom implementation:
+bool Symptoms::addSymptom(const std::string& symptomId, const std::string& symptomName, int severityRating, bool nurseOverride) {
+    // Check severity range
+    if (severityRating < 1 || severityRating > 5) {
         return false;
     }
-    
+
     // Verify symptom exists in preset list
     if (!SymptomDefinition::findSymptomById(symptomId)) {
         return false;
     }
-    
+
     // Check if symptom already exists
     if (hasSymptom(symptomId)) {
         return false;
     }
-    
+
+    // Check maximum symptoms limit only if not a nurse override
+    if (!nurseOverride && _symptoms.size() >= MAX_SYMPTOMS) {
+        return false;
+    }
+
     PatientSymptom symptom{symptomId, symptomName, severityRating};
     _symptoms.push_back(symptom);
     return true;

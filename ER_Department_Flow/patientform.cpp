@@ -233,9 +233,20 @@ void PatientForm::on_addSymptomButton_clicked()
 
 void PatientForm::on_removeSymptomButton_clicked()
 {
-    if (ui->selectedSymptomList->currentItem()) {
-        QString symptom = ui->selectedSymptomList->currentItem()->text();
-        currentPatient.getSymptoms().removeSymptom(symptom.split(" - ")[0].toStdString());
+    QListWidgetItem* currentItem = ui->selectedSymptomList->currentItem();
+    if (currentItem) {
+        // Extract the symptom name from the displayed string (format: "SymptomName - Severity: X")
+        QString fullText = currentItem->text();
+        QString symptomName = fullText.split(" - ").first();
+
+        // Find the corresponding symptom ID
+        for (const auto& symptom : currentPatient.getSymptoms().getSymptoms()) {
+            if (QString::fromStdString(symptom.symptomName) == symptomName) {
+                currentPatient.getSymptoms().removeSymptom(symptom.symptomId);
+                break;
+            }
+        }
+
         updateSymptomList();
     }
 }

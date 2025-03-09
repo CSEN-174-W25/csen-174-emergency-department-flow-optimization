@@ -100,7 +100,7 @@
          </size>
         </property>
         <property name="text">
-         <string>Test</string>
+         <string>View Patient Details</string>
         </property>
        </widget>
       </item>
@@ -140,6 +140,19 @@
         </property>
         <property name="text">
          <string>Update Department</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="editSymptomsButton">
+        <property name="minimumSize">
+         <size>
+          <width>150</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Edit Symptoms</string>
         </property>
        </widget>
       </item>
@@ -216,7 +229,7 @@
      <x>0</x>
      <y>0</y>
      <width>1024</width>
-     <height>37</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
