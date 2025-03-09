@@ -300,23 +300,39 @@ void NurseInterface::on_changeDepartmentButton_clicked()
 
 void NurseInterface::on_refreshButton_clicked()
 {
-
-    QString question = "Are you sure you want to add";
-
-    if (QMessageBox::question(this, "Add Symptom", "Are you sure you want to logout?",
-                              QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes) {
-        this->parentWidget()->show();
-        this->close();
-    }
+    // Simply refresh the queues
     updateQueues();
+
+    // Update the last refresh time
+    ui->lastRefreshLabel->setText("Last Updated: " +
+                                  QDateTime::currentDateTime().toString("hh:mm:ss AP"));
 }
 
 void NurseInterface::on_logoutButton_clicked()
 {
     if (QMessageBox::question(this, "Logout", "Are you sure you want to logout?",
-                            QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes) {
-        this->parentWidget()->show();
+                              QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes) {
+        // Get the parent (NurseLogin dialog)
+        QWidget* loginDialog = this->parentWidget();
+
+        // Get the main window (grandparent)
+        QWidget* mainWindow = nullptr;
+        if (loginDialog) {
+            mainWindow = loginDialog->parentWidget();
+        }
+
+        // Show the main window if found
+        if (mainWindow) {
+            mainWindow->show();
+        }
+
+        // Close this window (will delete when closed)
         this->close();
+
+        // Also close the login dialog
+        if (loginDialog) {
+            loginDialog->close();
+        }
     }
 }
 

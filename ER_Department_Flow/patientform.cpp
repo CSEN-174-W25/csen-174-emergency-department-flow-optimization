@@ -110,6 +110,10 @@ void PatientForm::setupPersonalInfoPage()
 
 void PatientForm::setupInsurancePage()
 {
+    // Set insurance radio button to unchecked by default
+    ui->hasInsuranceRadio->setChecked(false);
+    ui->insuranceGroupBox->setEnabled(false);
+
     // Setup insurance radio buttons
     connect(ui->hasInsuranceRadio, &QRadioButton::toggled, [this](bool checked) {
         ui->insuranceGroupBox->setEnabled(checked);
@@ -166,25 +170,31 @@ bool PatientForm::validatePersonalInfo()
         QMessageBox::warning(this, "Validation Error", "Please enter your name.");
         return false;
     }
-    
+
     if (ui->contactLineEdit->text().isEmpty()) {
         QMessageBox::warning(this, "Validation Error", "Please enter your contact number.");
         return false;
     }
-    
+
     if (ui->emergencyContactLineEdit->text().isEmpty()) {
         QMessageBox::warning(this, "Validation Error", "Please enter an emergency contact number.");
         return false;
     }
-    
+
     // Save to current patient
     currentPatient.setName(ui->nameLineEdit->text().toStdString());
     currentPatient.setGender(ui->genderComboBox->currentText().toStdString());
     currentPatient.setDOB(ui->dobDateEdit->date());
     currentPatient.setContact(ui->contactLineEdit->text().toStdString());
     currentPatient.setEmergencyContact(ui->emergencyContactLineEdit->text().toStdString());
-    currentPatient.setHomeAddr(ui->addressTextEdit->toPlainText().toStdString());
-    
+
+    // Handle empty address
+    std::string address = ui->addressTextEdit->toPlainText().toStdString();
+    if (address.empty()) {
+        address = "None";
+    }
+    currentPatient.setHomeAddr(address);
+
     return true;
 }
 
@@ -199,10 +209,14 @@ bool PatientForm::validateInsurance()
             QMessageBox::warning(this, "Validation Error", "Please enter your member ID.");
             return false;
         }
-        
+
         // Save insurance information
         currentPatient.setInsuranceProvider(ui->providerLineEdit->text().toStdString());
         currentPatient.setInsuranceMemberId(ui->memberIdLineEdit->text().toStdString());
+    } else {
+        // If no insurance is selected, set default values
+        currentPatient.setInsuranceProvider("None");
+        currentPatient.setInsuranceMemberId("None");
     }
     return true;
 }
@@ -277,15 +291,35 @@ bool PatientForm::validateSymptoms()
 
 bool PatientForm::validateMedicalHistory()
 {
-    // Save medical history information
-    currentPatient.setMedicalHistory(ui->medicalHistoryTextEdit->toPlainText().toStdString());
-    currentPatient.setFamilyHistory(ui->familyHistoryTextEdit->toPlainText().toStdString());
-    currentPatient.setCurrentMedications(ui->medicationsTextEdit->toPlainText().toStdString());
-    
-    if (ui->allergiesCheckBox->isChecked()) {
-        currentPatient.setAllergies(ui->allergiesTextEdit->toPlainText().toStdString());
+    // Save medical history information with defaults for empty fields
+    std::string medicalHistory = ui->medicalHistoryTextEdit->toPlainText().toStdString();
+    if (medicalHistory.empty()) {
+        medicalHistory = "None";
     }
-    
+    currentPatient.setMedicalHistory(medicalHistory);
+
+    std::string familyHistory = ui->familyHistoryTextEdit->toPlainText().toStdString();
+    if (familyHistory.empty()) {
+        familyHistory = "None";
+    }
+    currentPatient.setFamilyHistory(familyHistory);
+
+    std::string medications = ui->medicationsTextEdit->toPlainText().toStdString();
+    if (medications.empty()) {
+        medications = "None";
+    }
+    currentPatient.setCurrentMedications(medications);
+
+    if (ui->allergiesCheckBox->isChecked()) {
+        std::string allergies = ui->allergiesTextEdit->toPlainText().toStdString();
+        if (allergies.empty()) {
+            allergies = "None";
+        }
+        currentPatient.setAllergies(allergies);
+    } else {
+        currentPatient.setAllergies("None");
+    }
+
     return true;
 }
 
