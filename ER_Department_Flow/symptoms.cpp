@@ -50,7 +50,7 @@ int Symptoms::PatientSymptom::calculateUrgency() const {
     const auto* def = SymptomDefinition::findSymptomById(symptomId);
     if (!def) return 0;
     // Combine base urgency with patient-reported severity
-    return (def->baseUrgency * 2 + severityRating) / 3;
+    return (def->baseUrgency + severityRating * 2) / 3;
 }
 
 Symptoms::DepartmentRecommendation Symptoms::getDetailedDepartmentRecommendation() const {

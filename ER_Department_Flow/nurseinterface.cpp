@@ -25,7 +25,7 @@ NurseInterface::NurseInterface(QWidget *parent) :
     // Setup refresh timer
     refreshTimer = new QTimer(this);
     connect(refreshTimer, &QTimer::timeout, this, &NurseInterface::updateQueues);
-    refreshTimer->start(30000);  // Refresh every 30 seconds
+    refreshTimer->start(10000);  // Refresh every 10 seconds
     
     setupDepartmentViews();
     updateQueues();
