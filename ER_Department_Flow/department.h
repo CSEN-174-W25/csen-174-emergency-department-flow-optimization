@@ -17,7 +17,7 @@ public:
         std::time_t entryTime;
         
         bool operator<(const QueueEntry& other) const {
-            return priority < other.priority;
+            return priority > other.priority;
         }
     };
 

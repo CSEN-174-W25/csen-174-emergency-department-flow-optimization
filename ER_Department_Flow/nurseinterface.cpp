@@ -15,11 +15,10 @@
 NurseInterface::NurseInterface(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::NurseInterface)
-    //cardiacDept("Cardiac"),
-    //respiratoryDept("Respiratory"),
-    //generalDept("General")
 {
     ui->setupUi(this);
+    ui->logoutButton->setStyleSheet("background-color: #FF6666; color: white; font-weight: bold;");
+    ui->dischargePatientButton->setStyleSheet("background-color: #FF6666; color: white; font-weight: bold;");
     this->setWindowTitle("Nurse Interface");
     
     // Setup refresh timer
@@ -28,6 +27,7 @@ NurseInterface::NurseInterface(QWidget *parent) :
     refreshTimer->start(10000);  // Refresh every 10 seconds
     
     setupDepartmentViews();
+    setupDischargeView();
     updateQueues();
 }
 
@@ -35,6 +35,127 @@ NurseInterface::~NurseInterface()
 {
     delete ui;
     delete refreshTimer;
+}
+
+void NurseInterface::setupDischargeView()
+{
+    // Setup table headers and properties for discharge view
+    QStringList headers;
+    headers << "Patient ID" << "Name" << "Department" << "Wait Time";
+
+    // Define style to remove default selection tint
+    QString tableStyle = "QTableWidget {"
+                         "  selection-background-color: #3D3D3D;"
+                         "}"
+                         "QTableWidget::item:!selected {"
+                         "  background-color: transparent;"
+                         "}";
+
+    // Discharge Department Table
+    ui->dischargeTable->setColumnCount(4);
+    ui->dischargeTable->setHorizontalHeaderLabels(headers);
+    ui->dischargeTable->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    ui->dischargeTable->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->dischargeTable->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->dischargeTable->setAlternatingRowColors(false);
+    ui->dischargeTable->setStyleSheet(tableStyle);
+}
+
+void NurseInterface::updateDischargeView()
+{
+    ui->dischargeTable->setRowCount(0);  // Clear existing rows
+    ui->dischargeTable->setSortingEnabled(false); // Disable sorting during updates
+
+    // Retrieve patients from all departments
+    auto cardiacPatients = cardiacDept.getQueue();
+    auto respiratoryPatients = respiratoryDept.getQueue();
+    auto generalPatients = generalDept.getQueue();
+
+    // Add patients from each department
+    addPatientsToDischargeTable(cardiacPatients, "Cardiac");
+    addPatientsToDischargeTable(respiratoryPatients, "Respiratory");
+    addPatientsToDischargeTable(generalPatients, "General");
+
+    ui->dischargeTable->sortItems(0, Qt::AscendingOrder); // Sort by Patient ID
+}
+
+void NurseInterface::addPatientsToDischargeTable(const std::vector<Department::QueueEntry>& patients, const QString& deptName)
+{
+    for (const auto& entry : patients) {
+        int row = ui->dischargeTable->rowCount();
+        ui->dischargeTable->insertRow(row);
+
+        // Get patient information
+        Patient* patient = findPatient(entry.patientId);
+        if (!patient) continue;
+
+        // Calculate wait time
+        QDateTime entryTime = QDateTime::fromSecsSinceEpoch(entry.entryTime);
+        QString waitTime = calculateWaitTime(entryTime);
+
+        // Add patient information to table
+        QTableWidgetItem* patientId = new QTableWidgetItem(QString::number(entry.patientId));
+        QTableWidgetItem* patientName = new QTableWidgetItem(QString::fromStdString(patient->getName()));
+        QTableWidgetItem* department = new QTableWidgetItem(deptName);
+        QTableWidgetItem* patientWaitTime = new QTableWidgetItem(waitTime);
+
+        // Set flags
+        patientId->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+        patientName->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+        department->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+        patientWaitTime->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+
+        // Set items in table
+        ui->dischargeTable->setItem(row, 0, patientId);
+        ui->dischargeTable->setItem(row, 1, patientName);
+        ui->dischargeTable->setItem(row, 2, department);
+        ui->dischargeTable->setItem(row, 3, patientWaitTime);
+    }
+}
+
+void NurseInterface::on_dischargePatientButton_clicked()
+{
+    QTableWidget* dischargeTable = ui->dischargeTable;
+
+    if (!dischargeTable || !dischargeTable->currentItem()) {
+        QMessageBox::warning(this, "Error", "Please select a patient to discharge.");
+        return;
+    }
+
+    int patientId = dischargeTable->item(dischargeTable->currentRow(), 0)->text().toInt();
+    QString patientName = dischargeTable->item(dischargeTable->currentRow(), 1)->text();
+    QString department = dischargeTable->item(dischargeTable->currentRow(), 2)->text();
+
+    // Confirmation dialog
+    QMessageBox::StandardButton reply = QMessageBox::question(
+        this,
+        "Confirm Discharge",
+        QString("Are you sure you want to discharge:\n\nPatient ID: %1\nName: %2\nDepartment: %3\n\n"
+                "This will permanently remove the patient from the system.").arg(patientId).arg(patientName).arg(department),
+        QMessageBox::Yes | QMessageBox::No
+        );
+
+    if (reply == QMessageBox::Yes) {
+        dischargePatient(patientId);
+    }
+}
+
+void NurseInterface::dischargePatient(int patientId)
+{
+    // Remove from appropriate department queue
+    cardiacDept.removePatient(patientId);
+    respiratoryDept.removePatient(patientId);
+    generalDept.removePatient(patientId);
+
+    // Add a function to PatientDatabase to remove a patient
+    // This requires a modification to PatientDatabase class
+
+    // Update all views
+    updateQueues();
+    updateDischargeView();
+
+    QMessageBox::information(this, "Patient Discharged",
+                             QString("Patient ID %1 has been discharged from the system.").arg(patientId));
 }
 
 void NurseInterface::setupDepartmentViews()
@@ -83,6 +204,7 @@ void NurseInterface::setupDepartmentViews()
 void NurseInterface::updateDepartmentView(const Department& dept, QTableWidget* table)
 {
     table->setRowCount(0);  // Clear existing rows
+    table->setSortingEnabled(false); // Disable sorting during updates
 
     auto queue = dept.getQueue();
     for (const auto& entry : queue) {
@@ -100,17 +222,17 @@ void NurseInterface::updateDepartmentView(const Department& dept, QTableWidget* 
         // Add patient information to table
         QTableWidgetItem* patientId = new QTableWidgetItem(QString::number(entry.patientId));
         QTableWidgetItem* patientName = new QTableWidgetItem(QString::fromStdString(patient->getName()));
-        QTableWidgetItem* patientPriority = new QTableWidgetItem(QString::number(entry.priority));
+
+        // Use custom priority item that sorts correctly
+        QTableWidgetItem* patientPriority = new Ui::PriorityTableItem(entry.priority);
         QTableWidgetItem* patientWaitTime = new QTableWidgetItem(waitTime);
 
         // Add vitals status
         QTableWidgetItem* vitalsStatus = new QTableWidgetItem();
         if (patient->hasVitalsRecorded()) {
             vitalsStatus->setText("Recorded");
-            vitalsStatus->setBackground(QColor(200, 255, 200)); // Light green
         } else {
             vitalsStatus->setText("Needed");
-            vitalsStatus->setBackground(QColor(255, 200, 200)); // Light red
         }
 
         // Set flags
@@ -137,8 +259,7 @@ void NurseInterface::updateDepartmentView(const Department& dept, QTableWidget* 
         symptomsName->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
         table->setItem(row, 5, symptomsName); // Moved to column 5
     }
-
-    table->sortItems(2, Qt::DescendingOrder);  // Sort by priority
+    table->sortItems(2, Qt::AscendingOrder); // Now sorts correctly (lower number = higher priority)
 }
 
 void NurseInterface::on_viewPatientButton_clicked()
@@ -243,8 +364,8 @@ void NurseInterface::on_updatePriorityButton_clicked()
     
     bool ok;
     int newPriority = QInputDialog::getInt(this, "Update Priority",
-                                         "Enter new priority (1-10):",
-                                         currentPriority, 1, 10, 1, &ok);
+                                           "Enter new priority (1-10, 1 is MOST urgent):",
+                                           currentPriority, 1, 10, 1, &ok);
     
     if (ok) {
         currentDept->updatePatientPriority(patientId, newPriority);
@@ -336,21 +457,6 @@ void NurseInterface::on_logoutButton_clicked()
     }
 }
 
-/*QString NurseInterface::calculateWaitTime(const QDateTime& entryTime)
-{
-    QDateTime currentTime = QDateTime::currentDateTime();
-    qint64 secs = entryTime.secsTo(currentTime);
-    
-    int hours = secs / 3600;
-    int minutes = (secs % 3600) / 60;
-    
-    if (hours > 0) {
-        return QString("%1h %2m").arg(hours).arg(minutes);
-    } else {
-        return QString("%1m").arg(minutes);
-    }
-}*/
-
 QString NurseInterface::calculateWaitTime(const QDateTime& entryTime)
 {
     QDateTime currentTime = QDateTime::currentDateTime();
@@ -371,6 +477,7 @@ void NurseInterface::updateQueues()
     updateDepartmentView(::cardiacDept, ui->cardiacTable);
     updateDepartmentView(::respiratoryDept, ui->respiratoryTable);
     updateDepartmentView(::generalDept, ui->generalTable);
+    updateDischargeView();
     
     // Update last refresh time
     ui->lastRefreshLabel->setText("Last Updated: " + 

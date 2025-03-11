@@ -18,6 +18,8 @@ public:
     // Finds a Patient by ID or returns nullptr if not found
     Patient* findPatient(int patientId);
 
+    void removePatient(int patientId);
+
 private:
     // Private constructor for singleton usage
     PatientDatabase();

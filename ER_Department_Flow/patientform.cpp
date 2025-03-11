@@ -13,6 +13,9 @@ PatientForm::PatientForm(QWidget *parent) :
     currentPage(0)
 {
     ui->setupUi(this);
+    // Style the Next and Submit buttons blue
+    QString blueButtonStyle = "background-color: #0070a4; color: white; font-weight: bold;";
+    ui->nextButton->setStyleSheet(blueButtonStyle);
     this->setWindowTitle("Patient Information");
 
     // Initial setup

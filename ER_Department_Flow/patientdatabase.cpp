@@ -30,3 +30,8 @@ Patient* PatientDatabase::findPatient(int patientId)
     }
     return nullptr;
 }
+
+void PatientDatabase::removePatient(int patientId)
+{
+    _patients.erase(patientId);
+}

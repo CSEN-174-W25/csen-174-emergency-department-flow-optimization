@@ -41,17 +41,18 @@ void Department::updatePatientPriority(int patientId, int newPriority) {
     if (it != _patientIndex.end()) {
         // Retrieve the current entry.
         QueueEntry entry = it->second;
-        // Update the entry with the new priority and reset the entry time.
+
+        // Preserve the original entry time instead of resetting it
+        std::time_t originalEntryTime = entry.entryTime;
+
+        // Update the entry with the new priority but keep the original entry time
         entry.priority = newPriority;
-        entry.entryTime = std::time(nullptr);
+        entry.entryTime = originalEntryTime; // Keep original time instead of using std::time(nullptr)
 
         // Remove the old entry from the index.
         _patientIndex.erase(it);
 
         // Insert the updated entry into the priority queue.
-        // Note: std::priority_queue doesn't support removing or updating in-place.
-        // A more robust implementation might rebuild the queue, but for simplicity,
-        // we simply push the updated entry.
         _priorityQueue.push(entry);
 
         // Update the index with the new entry.

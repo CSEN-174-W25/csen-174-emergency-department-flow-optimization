@@ -8,6 +8,9 @@ NurseLogin::NurseLogin(QWidget *parent) :
     nurseInterface(nullptr)
 {
     ui->setupUi(this);
+    // Style the Login button blue
+    QString blueButtonStyle = "background-color: #0070a4; color: white; font-weight: bold;";
+    ui->loginButton->setStyleSheet(blueButtonStyle);
     this->setWindowTitle("Nurse Login");
 }
 

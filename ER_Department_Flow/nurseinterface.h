@@ -13,6 +13,19 @@
 #include "edit_symptoms_dialog.h"
 
 namespace Ui {
+class PriorityTableItem : public QTableWidgetItem {
+public:
+    PriorityTableItem(int priority) : QTableWidgetItem(QString::number(priority)) {
+        setData(Qt::DisplayRole, priority);
+    }
+
+    // Override the < operator for proper sorting
+    bool operator<(const QTableWidgetItem &other) const override {
+        // Lower priority number = higher priority, so reverse the comparison
+        return data(Qt::DisplayRole).toInt() < other.data(Qt::DisplayRole).toInt();
+    }
+};
+
 class NurseInterface;
 }
 
@@ -32,6 +45,7 @@ private slots:
     void on_refreshButton_clicked();
     void on_recordVitalsButton_clicked();
     void on_editSymptomsButton_clicked();
+    void on_dischargePatientButton_clicked();
 
     // Auto-refresh timer slot
     void updateQueues();
@@ -50,5 +64,10 @@ private:
     QString calculateWaitTime(const QDateTime& entryTime);
 
     void recordPatientVitals(int patientId);
+
+    void setupDischargeView();
+    void updateDischargeView();
+    void addPatientsToDischargeTable(const std::vector<Department::QueueEntry>& patients, const QString& deptName);
+    void dischargePatient(int patientId);
 };
 #endif
