@@ -38,6 +38,5 @@ public:
 private:
     std::vector<PatientSymptom> _symptoms;
     bool _hasAdditionalSymptoms = false;
-    //static const size_t MAX_SYMPTOMS = 5;
 };
 #endif

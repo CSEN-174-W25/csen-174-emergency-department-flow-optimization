@@ -28,4 +28,4 @@ private:
     void loadPatientVitals();
 };
 
-#endif // VITALS_DIALOG_H
+#endif

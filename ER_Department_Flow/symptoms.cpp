@@ -2,7 +2,6 @@
 #include <algorithm>
 
 const size_t Symptoms::MAX_SYMPTOMS;
-// In symptoms.cpp, update the addSymptom implementation:
 bool Symptoms::addSymptom(const std::string& symptomId, const std::string& symptomName, int severityRating, bool nurseOverride) {
     // Check severity range
     if (severityRating < 1 || severityRating > 5) {
@@ -59,7 +58,6 @@ int Symptoms::calculateOverallUrgency() const {
     // Calculate weighted average with more weight given to more urgent symptoms
     for (const auto& symptom : _symptoms) {
         int urgency = symptom.calculateUrgency();
-        // More urgent symptoms (lower numbers) get more weight
         int weight = 11 - urgency; // Weight from 1-10
         weightedSum += urgency * weight;
         totalWeight += weight;
@@ -68,10 +66,9 @@ int Symptoms::calculateOverallUrgency() const {
         mostUrgent = std::min(mostUrgent, urgency);
     }
 
-    // Calculate weighted average, but bias toward more urgent symptoms
+    // We want to calculate a weighted average, but bias toward more urgent symptoms
     int weightedAvg = totalWeight > 0 ? weightedSum / totalWeight : 10;
 
-    // Final urgency leans toward the most urgent symptom but considers the average
     // 70% influence from most urgent symptom, 30% from weighted average
     int finalUrgency = (7 * mostUrgent + 3 * weightedAvg) / 10;
 
@@ -124,16 +121,7 @@ int Symptoms::PatientSymptom::calculateUrgency() const {
     const auto* def = SymptomDefinition::findSymptomById(symptomId);
     if (!def) return 10; // Lowest urgency
 
-    // Original calculation gave high numbers for urgent symptoms
     int originalUrgency = def->baseUrgency;
-
-    // Adjust based on patient-reported severity (1-5)
-    // Severity 5 should make it more urgent (lower number in new scale)
-    // Severity 1 should make it less urgent (higher number in new scale)
-
-    // Map the 1-5 severity directly to priority contribution
-    // Severity 5 contributes -2 to priority (making it more urgent)
-    // Severity 1 contributes +2 to priority (making it less urgent)
     int severityAdjustment = 3 - severityRating;
 
     // Calculate final urgency (1-10 scale, 1 is most urgent)

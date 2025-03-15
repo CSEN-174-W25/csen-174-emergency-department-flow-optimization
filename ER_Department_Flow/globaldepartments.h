@@ -3,9 +3,9 @@
 
 #include "department.h"
 
-// Declare (extern) the department objects
+// Declarethe department objects as external variables
 extern Department cardiacDept;
 extern Department respiratoryDept;
 extern Department generalDept;
 
-#endif // GLOBALDEPARTMENTS_H
+#endif

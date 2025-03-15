@@ -47,7 +47,7 @@ void Department::updatePatientPriority(int patientId, int newPriority) {
 
         // Update the entry with the new priority but keep the original entry time
         entry.priority = newPriority;
-        entry.entryTime = originalEntryTime; // Keep original time instead of using std::time(nullptr)
+        entry.entryTime = originalEntryTime;
 
         // Remove the old entry from the index.
         _patientIndex.erase(it);
@@ -73,14 +73,8 @@ void Department::transferPatient(int patientId, Department& targetDept) {
         std::time_t entryTime = it->second.entryTime;
 
         // Remove the patient from the current department.
-        // Note: Removing from the _priorityQueue directly is non-trivial,
-        // so in a simple implementation we just remove from _patientIndex.
         _patientIndex.erase(it);
 
-        // Optionally, you could rebuild the entire _priorityQueue here,
-        // or simply allow the stale entry to remain if it won’t affect behavior.
-
-        // Add the patient to the target department with the same priority.
         targetDept.addPatient(patientId, priority, entryTime);
     }
 }

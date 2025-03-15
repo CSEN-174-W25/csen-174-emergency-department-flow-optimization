@@ -13,7 +13,7 @@ PatientForm::PatientForm(QWidget *parent) :
     currentPage(0)
 {
     ui->setupUi(this);
-    // Style the Next and Submit buttons blue
+    // Make the 'Next' and 'Submit' buttons blue
     QString blueButtonStyle = "background-color: #0070a4; color: white; font-weight: bold;";
     ui->nextButton->setStyleSheet(blueButtonStyle);
     this->setWindowTitle("Patient Information");
@@ -36,7 +36,7 @@ PatientForm::~PatientForm()
 void PatientForm::on_nextButton_clicked()
 {
     qDebug() << "Next button clicked, current page:" << currentPage;
-    // For example, validate the current page
+    // Validate the current page
     bool isValid = false;
     switch (currentPage) {
     case 0:
@@ -65,7 +65,6 @@ void PatientForm::on_nextButton_clicked()
     }
 }
 
-// Similarly, implement the other slots if they are declared:
 
 void PatientForm::on_backButton_clicked()
 {
@@ -100,7 +99,7 @@ void PatientForm::on_cancelButton_clicked()
 
 void PatientForm::setupPersonalInfoPage()
 {
-    // Setup date picker for DOB
+    // Setup date picker for date of birth
     ui->dobDateEdit->setMaximumDate(QDate::currentDate());
     ui->dobDateEdit->setDisplayFormat("MM/dd/yyyy");
     
@@ -113,7 +112,7 @@ void PatientForm::setupPersonalInfoPage()
 
 void PatientForm::setupInsurancePage()
 {
-    // Set insurance radio button to unchecked by default
+    // Insurance radio button should be unchecked by default
     ui->hasInsuranceRadio->setChecked(false);
     ui->insuranceGroupBox->setEnabled(false);
 
@@ -127,9 +126,6 @@ void PatientForm::setupSymptomsPage()
 {
     // Populate symptom list with preset symptoms
     ui->symptomList->clear();
-    /*for (const auto& symptom : SymptomDefinition::getPresetSymptoms()) {
-        ui->symptomList->addItem(QString::fromStdString(symptom.name));
-    }*/
     for (const auto& symptom : SymptomDefinition::getPresetSymptoms()) {
         QListWidgetItem* item = new QListWidgetItem(QString::fromStdString(symptom.name));
         // Store the ID in the item using a user role
@@ -228,7 +224,7 @@ void PatientForm::on_addSymptomButton_clicked()
 {
     QListWidgetItem* currentItem = ui->symptomList->currentItem();
     if (currentItem) {
-        // Retrieve the stored symptom ID from the item data
+        // Retrieve the stored symptom ID
         QString symptomName = currentItem->text();
         QString symptomId = currentItem->data(Qt::UserRole).toString();
         int severity = ui->severitySpinBox->value();
@@ -252,7 +248,7 @@ void PatientForm::on_removeSymptomButton_clicked()
 {
     QListWidgetItem* currentItem = ui->selectedSymptomList->currentItem();
     if (currentItem) {
-        // Extract the symptom name from the displayed string (format: "SymptomName - Severity: X")
+        // Extract the symptom name from the displayed string
         QString fullText = currentItem->text();
         QString symptomName = fullText.split(" - ").first();
 
@@ -294,7 +290,7 @@ bool PatientForm::validateSymptoms()
 
 bool PatientForm::validateMedicalHistory()
 {
-    // Save medical history information with defaults for empty fields
+    // Save medical history information with defaults if patient leaves them empty
     std::string medicalHistory = ui->medicalHistoryTextEdit->toPlainText().toStdString();
     if (medicalHistory.empty()) {
         medicalHistory = "None";
@@ -387,7 +383,6 @@ void PatientForm::submitForm()
         deptName + " department.\n\n"
         "Please wait to be called by a nurse.");
     
-    // TODO: Add patient to department queue
     // Generate a new Patient ID, then store the patient in the database
     int newPatientId = PatientDatabase::instance().generatePatientId();
     currentPatient.setPatientId(newPatientId);
@@ -396,7 +391,6 @@ void PatientForm::submitForm()
     // Add the patient to the department queue using the overall urgency
     int priority = currentPatient.getSymptoms().calculateOverallUrgency();
 
-    // Access the global or singleton Department objects (example).
     extern Department cardiacDept;
     extern Department respiratoryDept;
     extern Department generalDept;
@@ -421,10 +415,9 @@ void PatientForm::submitForm()
     
     // Return to main window
     qDebug() << "Parent widget:" << this->parentWidget();
-    // Show the main window (if it exists) and properly close this form
     QWidget* parent = this->parentWidget();
     if (parent) {
         parent->show();
     }
-    this->close();  // Use close() to properly close and clean up the patient form
+    this->close();
 }

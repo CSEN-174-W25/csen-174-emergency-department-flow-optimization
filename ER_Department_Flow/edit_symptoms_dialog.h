@@ -33,4 +33,4 @@ private:
     void updateAvailableSymptoms();
 };
 
-#endif // EDIT_SYMPTOMS_DIALOG_H
+#endif

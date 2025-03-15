@@ -147,9 +147,6 @@ void NurseInterface::dischargePatient(int patientId)
     respiratoryDept.removePatient(patientId);
     generalDept.removePatient(patientId);
 
-    // Add a function to PatientDatabase to remove a patient
-    // This requires a modification to PatientDatabase class
-
     // Update all views
     updateQueues();
     updateDischargeView();
@@ -164,7 +161,7 @@ void NurseInterface::setupDepartmentViews()
     QStringList headers;
     headers << "Patient ID" << "Name" << "Priority" << "Wait Time" << "Vitals" << "Symptoms";
 
-    // Define style to remove default selection tint
+    // Remove default selection tint
     QString tableStyle = "QTableWidget {"
                          "  selection-background-color: #3D3D3D;"
                          "}"
@@ -203,7 +200,7 @@ void NurseInterface::setupDepartmentViews()
 // Update the updateDepartmentView function to show the vitals status:
 void NurseInterface::updateDepartmentView(const Department& dept, QTableWidget* table)
 {
-    table->setRowCount(0);  // Clear existing rows
+    table->setRowCount(0); // Clear existing rows
     table->setSortingEnabled(false); // Disable sorting during updates
 
     auto queue = dept.getQueue();
@@ -247,7 +244,7 @@ void NurseInterface::updateDepartmentView(const Department& dept, QTableWidget* 
         table->setItem(row, 1, patientName);
         table->setItem(row, 2, patientPriority);
         table->setItem(row, 3, patientWaitTime);
-        table->setItem(row, 4, vitalsStatus); // New column for vitals
+        table->setItem(row, 4, vitalsStatus);
 
         // Create symptoms string
         QString symptomsStr;
@@ -257,9 +254,9 @@ void NurseInterface::updateDepartmentView(const Department& dept, QTableWidget* 
         }
         QTableWidgetItem* symptomsName = new QTableWidgetItem(symptomsStr);
         symptomsName->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-        table->setItem(row, 5, symptomsName); // Moved to column 5
+        table->setItem(row, 5, symptomsName);
     }
-    table->sortItems(2, Qt::AscendingOrder); // Now sorts correctly (lower number = higher priority)
+    table->sortItems(2, Qt::AscendingOrder); // Sorts correctly (lower number = higher priority)
 }
 
 void NurseInterface::on_viewPatientButton_clicked()
@@ -484,13 +481,12 @@ void NurseInterface::updateQueues()
                                 QDateTime::currentDateTime().toString("hh:mm:ss AP"));
 }
 
-// Helper method to find patient
+// Find patient in queue
 Patient* NurseInterface::findPatient(int patientId)
 {
-    // Leverage the PatientDatabase singleton to retrieve the patient by ID.
     Patient* p = PatientDatabase::instance().findPatient(patientId);
 
-    // Optional: Add debug output to see if we found the patient or not
+    // Debug output to see if we found the patient or not
     if (!p) {
         qDebug() << "NurseInterface::findPatient - No patient found with ID:" << patientId;
     } else {
@@ -499,10 +495,9 @@ Patient* NurseInterface::findPatient(int patientId)
     }
 
     return p;
-    //return nullptr;
 }
 
-// Add a helper function for recording vitals:
+// Function for recording vitals
 void NurseInterface::recordPatientVitals(int patientId)
 {
     Patient* patient = findPatient(patientId);
@@ -521,7 +516,7 @@ void NurseInterface::recordPatientVitals(int patientId)
     }
 }
 
-// Add a new button handler for recording vitals:
+// Button handler for recording vitals:
 void NurseInterface::on_recordVitalsButton_clicked()
 {
     QTableWidget* currentTable = nullptr;
@@ -544,7 +539,6 @@ void NurseInterface::on_recordVitalsButton_clicked()
     recordPatientVitals(patientId);
 }
 
-// In nurseinterface.cpp, add the implementation:
 void NurseInterface::on_editSymptomsButton_clicked()
 {
     QTableWidget* currentTable = nullptr;

@@ -3,7 +3,6 @@
 PatientDatabase::PatientDatabase()
     : _lastPatientId(0)
 {
-    // If needed, you can initialize other fields here.
 }
 
 PatientDatabase& PatientDatabase::instance()

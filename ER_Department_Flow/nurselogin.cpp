@@ -8,7 +8,7 @@ NurseLogin::NurseLogin(QWidget *parent) :
     nurseInterface(nullptr)
 {
     ui->setupUi(this);
-    // Style the Login button blue
+    // Make the login button blue
     QString blueButtonStyle = "background-color: #0070a4; color: white; font-weight: bold;";
     ui->loginButton->setStyleSheet(blueButtonStyle);
     this->setWindowTitle("Nurse Login");
@@ -44,6 +44,6 @@ void NurseLogin::on_cancelButton_clicked()
 
 bool NurseLogin::validateCredentials(const QString& username, const QString& password)
 {
-    // Test credentials as specified
+    // Test credentials for nurse
     return (username == "nurse" && password == "password");
 }

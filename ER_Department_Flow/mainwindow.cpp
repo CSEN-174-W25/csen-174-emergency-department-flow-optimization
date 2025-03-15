@@ -21,21 +21,16 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_patientButton_clicked()
 {
-    PatientForm *newForm = new PatientForm(this); // Parent is main window
-    newForm->setWindowFlags(Qt::Window);          // Make it a top-level window
+    PatientForm *newForm = new PatientForm(this);// Parent is main window
+    newForm->setWindowFlags(Qt::Window); // Make it a top-level window
     newForm->show();
-    newForm->activateWindow();                    // Bring it to the front
-    newForm->raise();                             // Raise above other windows
+    newForm->activateWindow(); // Bring it to the front
+    newForm->raise();// Raise above other windows
     this->hide();
 }
 
 void MainWindow::on_nurseButton_clicked()
 {
-    /*if (!nurseLogin) {
-        nurseLogin = new NurseLogin(this);
-    }
-    nurseLogin->show();
-    this->hide();*/
     NurseLogin *newForm = new NurseLogin(this);
     newForm->setWindowFlags(Qt::Window);
     newForm->show();

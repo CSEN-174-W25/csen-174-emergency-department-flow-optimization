@@ -112,10 +112,10 @@ class Patient {
 
         // Vital signs
         bool _vitalsRecorded = false;
-        int _heartRate = 0;          // beats per minute
-        std::string _bloodPressure = ""; // format: "120/80"
-        int _bloodSugar = 0;         // mg/dL
-        float _bodyTemperature = 0;  // Celsius
-        int _bloodOxygen = 0;        // percentage (SpO2)
+        int _heartRate = 0; // beats per minute
+        std::string _bloodPressure = ""; // format should be 120/80
+        int _bloodSugar = 0; // mg/dL
+        float _bodyTemperature = 0; // Fahrenheit
+        int _bloodOxygen = 0; // percentage of Oxygen
 };
 #endif

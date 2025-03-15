@@ -24,7 +24,7 @@ VitalsDialog::VitalsDialog(Patient* patient, QWidget *parent) :
     // Blood sugar (40-500 mg/dL)
     ui->bloodSugarInput->setValidator(new QIntValidator(40, 500, this));
 
-    // Temperature (95.0-108.0 °F)
+    // Temperature (95.0-108.0 Fahrenheit)
     ui->temperatureInput->setValidator(new QDoubleValidator(95.0, 108.0, 1, this));
 
     // Blood oxygen (70-100%)

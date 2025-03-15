@@ -6,7 +6,6 @@
 
 class PatientDatabase {
 public:
-    // Singleton-like accessor
     static PatientDatabase& instance();
 
     // Generates a unique Patient ID
@@ -15,13 +14,12 @@ public:
     // Stores or updates a Patient object
     void storePatient(const Patient& patient);
 
-    // Finds a Patient by ID or returns nullptr if not found
+    // Finds a Patient by ID
     Patient* findPatient(int patientId);
 
     void removePatient(int patientId);
 
 private:
-    // Private constructor for singleton usage
     PatientDatabase();
 
     // Map of patient ID -> Patient
@@ -31,4 +29,4 @@ private:
     int _lastPatientId;
 };
 
-#endif // PATIENTDATABASE_H
+#endif

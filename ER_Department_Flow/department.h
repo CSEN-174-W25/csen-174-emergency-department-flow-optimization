@@ -42,6 +42,6 @@ public:
 private:
     std::string _name;
     std::priority_queue<QueueEntry> _priorityQueue;
-    std::map<int, QueueEntry> _patientIndex; // For O(1) lookups
+    std::map<int, QueueEntry> _patientIndex;
 };
 #endif
